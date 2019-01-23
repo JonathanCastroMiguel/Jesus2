@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FrecuentoModelStoreContainer" CdmEntityContainer="FrecuentoEntities1">
+    <EntitySetMapping Name="Cliente">
+      <EntityTypeMapping TypeName="FrecuentoModel.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="Id_Cliente" ColumnName="Id_Cliente" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+          <ScalarProperty Name="Dirección" ColumnName="Dirección" />
+          <ScalarProperty Name="Código_Postal" ColumnName="Código_Postal" />
+          <ScalarProperty Name="Fecha_Nacimiento" ColumnName="Fecha_Nacimiento" />
+          <ScalarProperty Name="Teléfono" ColumnName="Teléfono" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DNI" ColumnName="DNI" />
+          <ScalarProperty Name="Nº_Cuenta" ColumnName="Nº_Cuenta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empresa">
+      <EntityTypeMapping TypeName="FrecuentoModel.Empresa">
+        <MappingFragment StoreEntitySet="Empresa">
+          <ScalarProperty Name="Id_Empresa" ColumnName="Id_Empresa" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Dirección" ColumnName="Dirección" />
+          <ScalarProperty Name="Teléfono" ColumnName="Teléfono" />
+          <ScalarProperty Name="Nº_Empleados" ColumnName="Nº_Empleados" />
+          <ScalarProperty Name="Nº_Cuenta" ColumnName="Nº_Cuenta" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EvenEmpre">
+      <EntityTypeMapping TypeName="FrecuentoModel.EvenEmpre">
+        <MappingFragment StoreEntitySet="EvenEmpre">
+          <ScalarProperty Name="Id_Empresa" ColumnName="Id_Empresa" />
+          <ScalarProperty Name="Precio_Base" ColumnName="Precio_Base" />
+          <ScalarProperty Name="Id_Tipo_Evento" ColumnName="Id_Tipo_Evento" />
+          <ScalarProperty Name="Id_EvenEmpre" ColumnName="Id_EvenEmpre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="evenser">
+      <EntityTypeMapping TypeName="FrecuentoModel.evenser">
+        <MappingFragment StoreEntitySet="evenser">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Id_Servi" ColumnName="Id_Servi" />
+          <ScalarProperty Name="Id_Event" ColumnName="Id_Event" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reserva">
+      <EntityTypeMapping TypeName="FrecuentoModel.Reserva">
+        <MappingFragment StoreEntitySet="Reserva">
+          <ScalarProperty Name="Id_Reserva" ColumnName="Id_Reserva" />
+          <ScalarProperty Name="Precio_total" ColumnName="Precio_total" />
+          <ScalarProperty Name="Id_Cliente" ColumnName="Id_Cliente" />
+          <ScalarProperty Name="Id_Empresa" ColumnName="Id_Empresa" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="EvenEmpreId_Evento" ColumnName="EvenEmpreId_Evento" />
+          <ScalarProperty Name="Precio_Servicios" ColumnName="Precio_Servicios" />
+          <ScalarProperty Name="Precio_base_Evento" ColumnName="Precio_base_Evento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiEmpre">
+      <EntityTypeMapping TypeName="FrecuentoModel.ServiEmpre">
+        <MappingFragment StoreEntitySet="ServiEmpre">
+          <ScalarProperty Name="Id_Tipo_Servicio" ColumnName="Id_Tipo_Servicio" />
+          <ScalarProperty Name="Precio_Servicio" ColumnName="Precio_Servicio" />
+          <ScalarProperty Name="Id_Empresa" ColumnName="Id_Empresa" />
+          <ScalarProperty Name="Id_ServiEmpre" ColumnName="Id_ServiEmpre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tipo_Evento">
+      <EntityTypeMapping TypeName="FrecuentoModel.Tipo_Evento">
+        <MappingFragment StoreEntitySet="Tipo_Evento">
+          <ScalarProperty Name="Id_Tipo_Evento" ColumnName="Id_Tipo_Evento" />
+          <ScalarProperty Name="Descripción" ColumnName="Descripción" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tipo_Servicio">
+      <EntityTypeMapping TypeName="FrecuentoModel.Tipo_Servicio">
+        <MappingFragment StoreEntitySet="Tipo_Servicio">
+          <ScalarProperty Name="Id_Tipo_Servicio" ColumnName="Id_Tipo_Servicio" />
+          <ScalarProperty Name="Descripción" ColumnName="Descripción" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

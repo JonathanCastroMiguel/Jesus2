@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FrecuentoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="Id_Cliente" />
+    </Key>
+    <Property Name="Id_Cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Dirección" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Código_Postal" Type="Int32" Nullable="false" />
+    <Property Name="Fecha_Nacimiento" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Teléfono" Type="Int32" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DNI" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nº_Cuenta" Type="String" MaxLength="24" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Reserva" Relationship="Self.FK_Reserva_Cliente" FromRole="Cliente" ToRole="Reserva" />
+  </EntityType>
+  <EntityType Name="Empresa">
+    <Key>
+      <PropertyRef Name="Id_Empresa" />
+    </Key>
+    <Property Name="Id_Empresa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Dirección" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Teléfono" Type="Int32" Nullable="false" />
+    <Property Name="Nº_Empleados" Type="Int32" Nullable="false" />
+    <Property Name="Nº_Cuenta" Type="String" MaxLength="24" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="EvenEmpre" Relationship="Self.FK_EvenEmpre_Empresa" FromRole="Empresa" ToRole="EvenEmpre" />
+    <NavigationProperty Name="Reserva" Relationship="Self.FK_Reserva_Empresa" FromRole="Empresa" ToRole="Reserva" />
+    <NavigationProperty Name="ServiEmpre" Relationship="Self.FK_ServiEmpre_Empresa" FromRole="Empresa" ToRole="ServiEmpre" />
+  </EntityType>
+  <EntityType Name="EvenEmpre">
+    <Key>
+      <PropertyRef Name="Id_EvenEmpre" />
+    </Key>
+    <Property Name="Id_Empresa" Type="Int32" Nullable="false" />
+    <Property Name="Precio_Base" Type="Int32" Nullable="false" />
+    <Property Name="Id_Tipo_Evento" Type="Int32" Nullable="false" />
+    <Property Name="Id_EvenEmpre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Empresa" Relationship="Self.FK_EvenEmpre_Empresa" FromRole="EvenEmpre" ToRole="Empresa" />
+    <NavigationProperty Name="Tipo_Evento" Relationship="Self.FK_EvenEmpre_Tipo_Evento" FromRole="EvenEmpre" ToRole="Tipo_Evento" />
+    <NavigationProperty Name="Reserva" Relationship="Self.FK_Reserva_EvenEmpre" FromRole="EvenEmpre" ToRole="Reserva" />
+    <NavigationProperty Name="evenser" Relationship="Self.FK_union2" FromRole="EvenEmpre" ToRole="evenser" />
+  </EntityType>
+  <EntityType Name="evenser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_Servi" Type="Int32" Nullable="false" />
+    <Property Name="Id_Event" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="EvenEmpre" Relationship="Self.FK_union2" FromRole="evenser" ToRole="EvenEmpre" />
+    <NavigationProperty Name="ServiEmpre" Relationship="Self.FK_union" FromRole="evenser" ToRole="ServiEmpre" />
+  </EntityType>
+  <EntityType Name="Reserva">
+    <Key>
+      <PropertyRef Name="Id_Reserva" />
+    </Key>
+    <Property Name="Id_Reserva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Precio_total" Type="Int32" Nullable="false" />
+    <Property Name="Id_Cliente" Type="Int32" Nullable="false" />
+    <Property Name="Id_Empresa" Type="Int32" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EvenEmpreId_Evento" Type="Int32" Nullable="false" />
+    <Property Name="Precio_Servicios" Type="Int32" Nullable="false" />
+    <Property Name="Precio_base_Evento" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK_Reserva_Cliente" FromRole="Reserva" ToRole="Cliente" />
+    <NavigationProperty Name="Empresa" Relationship="Self.FK_Reserva_Empresa" FromRole="Reserva" ToRole="Empresa" />
+    <NavigationProperty Name="EvenEmpre" Relationship="Self.FK_Reserva_EvenEmpre" FromRole="Reserva" ToRole="EvenEmpre" />
+  </EntityType>
+  <EntityType Name="ServiEmpre">
+    <Key>
+      <PropertyRef Name="Id_ServiEmpre" />
+    </Key>
+    <Property Name="Id_Tipo_Servicio" Type="Int32" Nullable="false" />
+    <Property Name="Precio_Servicio" Type="Int32" Nullable="false" />
+    <Property Name="Id_Empresa" Type="Int32" Nullable="false" />
+    <Property Name="Id_ServiEmpre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Empresa" Relationship="Self.FK_ServiEmpre_Empresa" FromRole="ServiEmpre" ToRole="Empresa" />
+    <NavigationProperty Name="evenser" Relationship="Self.FK_union" FromRole="ServiEmpre" ToRole="evenser" />
+    <NavigationProperty Name="Tipo_Servicio" Relationship="Self.FK_ServiEmpre_Tipo_Servicio" FromRole="ServiEmpre" ToRole="Tipo_Servicio" />
+  </EntityType>
+  <EntityType Name="Tipo_Evento">
+    <Key>
+      <PropertyRef Name="Id_Tipo_Evento" />
+    </Key>
+    <Property Name="Id_Tipo_Evento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripción" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="EvenEmpre" Relationship="Self.FK_EvenEmpre_Tipo_Evento" FromRole="Tipo_Evento" ToRole="EvenEmpre" />
+  </EntityType>
+  <EntityType Name="Tipo_Servicio">
+    <Key>
+      <PropertyRef Name="Id_Tipo_Servicio" />
+    </Key>
+    <Property Name="Id_Tipo_Servicio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripción" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ServiEmpre" Relationship="Self.FK_ServiEmpre_Tipo_Servicio" FromRole="Tipo_Servicio" ToRole="ServiEmpre" />
+  </EntityType>
+  <Association Name="FK_Reserva_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Reserva" Type="Self.Reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="Id_Cliente" />
+      </Principal>
+      <Dependent Role="Reserva">
+        <PropertyRef Name="Id_Cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvenEmpre_Empresa">
+    <End Role="Empresa" Type="Self.Empresa" Multiplicity="1" />
+    <End Role="EvenEmpre" Type="Self.EvenEmpre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="Id_Empresa" />
+      </Principal>
+      <Dependent Role="EvenEmpre">
+        <PropertyRef Name="Id_Empresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reserva_Empresa">
+    <End Role="Empresa" Type="Self.Empresa" Multiplicity="1" />
+    <End Role="Reserva" Type="Self.Reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="Id_Empresa" />
+      </Principal>
+      <Dependent Role="Reserva">
+        <PropertyRef Name="Id_Empresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiEmpre_Empresa">
+    <End Role="Empresa" Type="Self.Empresa" Multiplicity="1" />
+    <End Role="ServiEmpre" Type="Self.ServiEmpre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="Id_Empresa" />
+      </Principal>
+      <Dependent Role="ServiEmpre">
+        <PropertyRef Name="Id_Empresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvenEmpre_Tipo_Evento">
+    <End Role="Tipo_Evento" Type="Self.Tipo_Evento" Multiplicity="1" />
+    <End Role="EvenEmpre" Type="Self.EvenEmpre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tipo_Evento">
+        <PropertyRef Name="Id_Tipo_Evento" />
+      </Principal>
+      <Dependent Role="EvenEmpre">
+        <PropertyRef Name="Id_Tipo_Evento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reserva_EvenEmpre">
+    <End Role="EvenEmpre" Type="Self.EvenEmpre" Multiplicity="1" />
+    <End Role="Reserva" Type="Self.Reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EvenEmpre">
+        <PropertyRef Name="Id_EvenEmpre" />
+      </Principal>
+      <Dependent Role="Reserva">
+        <PropertyRef Name="EvenEmpreId_Evento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_union2">
+    <End Role="EvenEmpre" Type="Self.EvenEmpre" Multiplicity="1" />
+    <End Role="evenser" Type="Self.evenser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EvenEmpre">
+        <PropertyRef Name="Id_EvenEmpre" />
+      </Principal>
+      <Dependent Role="evenser">
+        <PropertyRef Name="Id_Event" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_union">
+    <End Role="ServiEmpre" Type="Self.ServiEmpre" Multiplicity="1" />
+    <End Role="evenser" Type="Self.evenser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServiEmpre">
+        <PropertyRef Name="Id_ServiEmpre" />
+      </Principal>
+      <Dependent Role="evenser">
+        <PropertyRef Name="Id_Servi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiEmpre_Tipo_Servicio">
+    <End Role="Tipo_Servicio" Type="Self.Tipo_Servicio" Multiplicity="1" />
+    <End Role="ServiEmpre" Type="Self.ServiEmpre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tipo_Servicio">
+        <PropertyRef Name="Id_Tipo_Servicio" />
+      </Principal>
+      <Dependent Role="ServiEmpre">
+        <PropertyRef Name="Id_Tipo_Servicio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FrecuentoEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+    <EntitySet Name="Empresa" EntityType="Self.Empresa" />
+    <EntitySet Name="EvenEmpre" EntityType="Self.EvenEmpre" />
+    <EntitySet Name="evenser" EntityType="Self.evenser" />
+    <EntitySet Name="Reserva" EntityType="Self.Reserva" />
+    <EntitySet Name="ServiEmpre" EntityType="Self.ServiEmpre" />
+    <EntitySet Name="Tipo_Evento" EntityType="Self.Tipo_Evento" />
+    <EntitySet Name="Tipo_Servicio" EntityType="Self.Tipo_Servicio" />
+    <AssociationSet Name="FK_Reserva_Cliente" Association="Self.FK_Reserva_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Reserva" EntitySet="Reserva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvenEmpre_Empresa" Association="Self.FK_EvenEmpre_Empresa">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="EvenEmpre" EntitySet="EvenEmpre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reserva_Empresa" Association="Self.FK_Reserva_Empresa">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="Reserva" EntitySet="Reserva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiEmpre_Empresa" Association="Self.FK_ServiEmpre_Empresa">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="ServiEmpre" EntitySet="ServiEmpre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvenEmpre_Tipo_Evento" Association="Self.FK_EvenEmpre_Tipo_Evento">
+      <End Role="Tipo_Evento" EntitySet="Tipo_Evento" />
+      <End Role="EvenEmpre" EntitySet="EvenEmpre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reserva_EvenEmpre" Association="Self.FK_Reserva_EvenEmpre">
+      <End Role="EvenEmpre" EntitySet="EvenEmpre" />
+      <End Role="Reserva" EntitySet="Reserva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_union2" Association="Self.FK_union2">
+      <End Role="EvenEmpre" EntitySet="EvenEmpre" />
+      <End Role="evenser" EntitySet="evenser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_union" Association="Self.FK_union">
+      <End Role="ServiEmpre" EntitySet="ServiEmpre" />
+      <End Role="evenser" EntitySet="evenser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiEmpre_Tipo_Servicio" Association="Self.FK_ServiEmpre_Tipo_Servicio">
+      <End Role="Tipo_Servicio" EntitySet="Tipo_Servicio" />
+      <End Role="ServiEmpre" EntitySet="ServiEmpre" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

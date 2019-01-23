@@ -1,0 +1,74 @@
+﻿@model Frecuento2.Models.Reserva
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reserva</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio_total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio_total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio_Servicios)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio_Servicios)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio_base_Evento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio_base_Evento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Empresa.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empresa.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EvenEmpre.Id_EvenEmpre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EvenEmpre.Id_EvenEmpre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id_Reserva }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

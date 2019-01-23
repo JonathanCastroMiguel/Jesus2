@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Frecuento2.Models.Reserva>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio_total)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio_Servicios)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio_base_Evento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cliente.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Empresa.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EvenEmpre.Id_EvenEmpre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio_total)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio_Servicios)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio_base_Evento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Empresa.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EvenEmpre.Id_EvenEmpre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id_Reserva }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id_Reserva }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id_Reserva })
+        </td>
+    </tr>
+}
+
+</table>

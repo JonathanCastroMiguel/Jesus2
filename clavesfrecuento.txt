@@ -1,0 +1,11 @@
+ADMINISTRADOR
+admin@frecuento.es
+admin123
+
+EMPRESA
+jardinade@empresa.es
+ABc_1234
+
+CLIENTE
+jesus@gmail.es	
+ABc_1234
