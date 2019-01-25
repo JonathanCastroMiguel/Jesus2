@@ -34,6 +34,9 @@ namespace Frecuento2.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.EventList = db.Tipo_Evento.ToList();
+            ViewBag.ServiceList = db.Tipo_Servicio.ToList();
             return View("Details", "_Layout", empresa);
         }
 

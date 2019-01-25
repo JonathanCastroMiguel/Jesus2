@@ -1,9 +1,9 @@
 ﻿@model Frecuento2.Models.Empresa
-
 @{
+    /**/
+
     ViewBag.Title = "Details";
 }
-
 <h2>Details</h2>
 
 <div>
@@ -13,54 +13,185 @@
         <dt>
             @Html.DisplayNameFor(model => model.Nombre)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Nombre)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Dirección)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Dirección)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Teléfono)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Teléfono)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Nº_Empleados)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Nº_Empleados)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Nº_Cuenta)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Nº_Cuenta)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Email)
         </dd>
-
     </dl>
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id_Empresa }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<div class="row">
+    <div class="col-sm-6">
+        <h4>Evento de empresa</h4> 
+
+        @using (Html.BeginForm("CreateFromCompany", "EvenEmpres"))
+        {
+            @Html.AntiForgeryToken()
+
+
+            @Html.HiddenFor(m => m.Id_Empresa)
+            <div class="row">
+                <div class="col-sm-5">
+                    @Html.DropDownList("Id_Tipo_Evento", new SelectList(ViewBag.EventList, "Id_Tipo_Evento", "Descripción"),  htmlAttributes : new { @class = "form-control" })
+                </div>
+                <div class="col-sm-3">
+                    @Html.TextBox("Precio_Base", "", new { @type = "number", @class = "form-control" })
+                </div>
+                <div class="col-sm-4">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+
+        }
+        <br />
+        @if (Model.EvenEmpre != null && Model.EvenEmpre.Count > 0)
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(modelItem => Model.EvenEmpre.ToList()[0].Tipo_Evento.Descripción)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(modelItem => Model.EvenEmpre.ToList()[0].Precio_Base)
+                    </th>
+                </tr>
+                @foreach (var item in Model.EvenEmpre)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tipo_Evento.Descripción)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Precio_Base)
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+
+            <h4> Servicio de Empresa</h4>
+        @using (Html.BeginForm("CreateForCompany", "ServiEmpres"))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(m => m.Id_Empresa)
+
+            <div class="row">
+                <div class="col-sm-5">
+                    @Html.DropDownList("Id_Tipo_Servicio", new SelectList(ViewBag.ServiceList, "Id_Tipo_Servicio", "Descripción"), htmlAttributes: new { @class = "form-control" })
+                </div>
+                <div class="col-sm-3">
+                    @Html.TextBox("Precio_Servicio", "", new { @type = "number", @class = "form-control" })
+                </div>
+                <div class="col-sm-4">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        }
+        <br />
+        @if (Model.ServiEmpre != null && Model.ServiEmpre.Count > 0)
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(modelItem => Model.ServiEmpre.ToList()[0].Tipo_Servicio.Descripción)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(modelItem => Model.ServiEmpre.ToList()[0].Precio_Servicio)
+                    </th>
+
+                </tr>
+                @foreach (var item in Model.ServiEmpre)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tipo_Servicio.Descripción)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Precio_Servicio)
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+
+    </div>
+    <div class="col-sm-6">
+        <h4>Reserva</h4>
+
+        @if (Model.Reserva != null && Model.Reserva.Count > 0)
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(modelItem => Model.Reserva.ToList()[0].Fecha)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(modelItem => Model.Reserva.ToList()[0].EvenEmpre.Tipo_Evento.Descripción)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(modelItem => Model.Reserva.ToList()[0].Cliente.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(modelItem => Model.Reserva.ToList()[0].Precio_base_Evento)
+                    </th>
+                </tr>
+                @foreach (var item in Model.Reserva)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EvenEmpre.Tipo_Evento.Descripción)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio_base_Evento)
+                    </td>
+                </tr>
+                }
+            </table>
+        }
+    </div>
+</div>
+
+
+
+

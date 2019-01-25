@@ -63,6 +63,22 @@ namespace Frecuento2.Controllers
             return View(serviEmpre);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateForCompany(ServiEmpre serviEmpre)
+        {
+            if (ModelState.IsValid)
+            {
+                db.ServiEmpre.Add(serviEmpre);
+                db.SaveChanges();
+                return RedirectToAction("Details", "Empresas", new { id = serviEmpre.Id_Empresa });
+            }
+
+            ViewBag.Id_Empresa = new SelectList(db.Empresa, "Id_Empresa", "Nombre", serviEmpre.Id_Empresa);
+            ViewBag.Id_Servicio = new SelectList(db.Tipo_Servicio, "Id_Tipo_Servicio", "Descripción", serviEmpre.Id_Tipo_Servicio);
+            return RedirectToAction("Details", "Empresas", new { id = serviEmpre.Id_Empresa });
+        }
+
         // GET: ServiEmpres/Edit/5
         public ActionResult Edit(int? id)
         {

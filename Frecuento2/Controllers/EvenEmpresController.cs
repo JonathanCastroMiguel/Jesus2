@@ -61,6 +61,21 @@ namespace Frecuento2.Controllers
             return View(evenEmpre);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateFromCompany(EvenEmpre evenEmpre)
+        {
+            if (ModelState.IsValid)
+            {
+                db.EvenEmpre.Add(evenEmpre);
+                db.SaveChanges();
+                return RedirectToAction("Details", "Empresas", new { id = evenEmpre.Id_Empresa });
+            }
+
+            ViewBag.Id_Empresa = new SelectList(db.Empresa, "Id_Empresa", "Nombre", evenEmpre.Id_Empresa);
+            return RedirectToAction("Details", "Empresas",new { id=evenEmpre.Id_Empresa });
+        }
+
         // GET: EvenEmpres/Edit/5
         public ActionResult Edit(int? id)
         {
