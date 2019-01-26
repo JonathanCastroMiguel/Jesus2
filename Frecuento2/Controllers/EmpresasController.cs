@@ -85,7 +85,7 @@ namespace Frecuento2.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id_Empresa,Nombre,Dirección,Teléfono,Nº_Empleados,Nº_Cuenta")] Empresa empresa)
+        public ActionResult Edit([Bind(Include = "Id_Empresa,Nombre,Dirección,Teléfono,Nº_Empleados,Nº_Cuenta,Email")] Empresa empresa)
         {
             if (ModelState.IsValid)
             {

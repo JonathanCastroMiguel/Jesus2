@@ -56,7 +56,7 @@
 
 <div class="row">
     <div class="col-sm-6">
-        <h4>Evento de empresa</h4> 
+        <h4>Evento de empresa</h4>
 
         @using (Html.BeginForm("CreateFromCompany", "EvenEmpres"))
         {
@@ -64,15 +64,19 @@
 
 
             @Html.HiddenFor(m => m.Id_Empresa)
+            @Html.Hidden("Id_EvenEmpre", 0)
+
             <div class="row">
                 <div class="col-sm-5">
-                    @Html.DropDownList("Id_Tipo_Evento", new SelectList(ViewBag.EventList, "Id_Tipo_Evento", "Descripción"),  htmlAttributes : new { @class = "form-control" })
+                    @Html.DropDownList("Id_Tipo_Evento", new SelectList(ViewBag.EventList, "Id_Tipo_Evento", "Descripción"), htmlAttributes: new { @class = "form-control" })
                 </div>
                 <div class="col-sm-3">
                     @Html.TextBox("Precio_Base", "", new { @type = "number", @class = "form-control" })
                 </div>
                 <div class="col-sm-4">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    <input type="submit" value="Save" id="btnEvent" class="btn btn-default" />
+                    <input type="button" onclick="EventCancelClick()" id="btnEventCancel" value="Cancel" style="display:none" class="btn btn-default" />
+
                 </div>
             </div>
 
@@ -98,17 +102,29 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Precio_Base)
                         </td>
+                        <td>
+                            @using (Html.BeginForm("DeleteFromCompany", "EvenEmpres"))
+                            {
+                                <button type="button" value="Edit" onclick="onEventEditClick(@item.Id_EvenEmpre,@item.Precio_Base,@item.Id_Tipo_Evento)" class="btn btn-default">Edit</button>
+
+                                @Html.Hidden("compId", Model.Id_Empresa)
+                                @Html.Hidden("evenEmpId", item.Id_EvenEmpre)
+                                <button type="submit"  onclick="return confirm('Are you sure want to delete?')" id="btnDeleteCancel" value="Cancel" class="btn btn-danger" >Delete</button>        
+                            }
+
+                        </td>
                     </tr>
                 }
             </table>
         }
 
-            <h4> Servicio de Empresa</h4>
+        <h4> Servicio de Empresa</h4>
         @using (Html.BeginForm("CreateForCompany", "ServiEmpres"))
         {
             @Html.AntiForgeryToken()
 
             @Html.HiddenFor(m => m.Id_Empresa)
+            @Html.Hidden("Id_ServiEmpre", 0)
 
             <div class="row">
                 <div class="col-sm-5">
@@ -118,7 +134,8 @@
                     @Html.TextBox("Precio_Servicio", "", new { @type = "number", @class = "form-control" })
                 </div>
                 <div class="col-sm-4">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    <input type="submit" id="btnService" value="Save" class="btn btn-default" />
+                    <input type="button" onclick="ServiceCancelClick()" id="btnServiceCancel" value="Cancel" style="display:none" class="btn btn-default" />
                 </div>
             </div>
         }
@@ -144,6 +161,17 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Precio_Servicio)
                         </td>
+                        <td>
+                            @using (Html.BeginForm("DeleteFromCompany", "ServiEmpres"))
+                            {
+                                <button type="button" value="Edit" onclick="onServiceEditClick(@item.Id_ServiEmpre,@item.Precio_Servicio,@item.Id_Tipo_Servicio)" class="btn btn-default">Edit</button>
+
+                                @Html.Hidden("compId", Model.Id_Empresa)
+                                @Html.Hidden("servEmpId", item.Id_ServiEmpre)
+                                <button type="submit" onclick="return confirm('Are you sure want to delete?')" id="btnDeleteCancel" value="Cancel" class="btn btn-danger" >Delete</button>
+                            }
+                        </td>
+
                     </tr>
                 }
             </table>
@@ -172,20 +200,20 @@
                 </tr>
                 @foreach (var item in Model.Reserva)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Fecha)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EvenEmpre.Tipo_Evento.Descripción)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cliente.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Precio_base_Evento)
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EvenEmpre.Tipo_Evento.Descripción)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Precio_base_Evento)
+                        </td>
+                    </tr>
                 }
             </table>
         }
@@ -195,3 +223,47 @@
 
 
 
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+
+
+<script>
+
+    function onEventEditClick(id, price, eventId) {
+        $("#Id_EvenEmpre").val(id);
+        $("#Precio_Base").val(price);
+        $("#Id_Tipo_Evento").val(eventId);
+        $("#btnEvent").val("Update");
+        $("#btnEventCancel").show();
+    }
+
+    function EventCancelClick() {
+        $("#btnEvent").val("Save");
+        $("#btnEventCancel").hide();
+        $("#Id_EvenEmpre").val(0);
+    }
+
+    function onServiceEditClick(id, price, serId) {
+        $("#Id_ServiEmpre").val(id);
+        $("#Precio_Servicio").val(price);
+        $("#Id_Tipo_Servicio").val(serId);
+        $("#btnService").val("Update");
+        $("#btnServiceCancel").show();
+    }
+
+    function ServiceCancelClick() {
+        $("#btnService").val("Save");
+        $("#btnServiceCancel").hide();
+        $("#Id_ServiEmpre").val(0);
+    }
+
+    $(document).ready(function () {
+
+
+
+
+
+    });
+</script>

@@ -67,13 +67,41 @@ namespace Frecuento2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.EvenEmpre.Add(evenEmpre);
-                db.SaveChanges();
+                if (evenEmpre.Id_EvenEmpre > 0)
+                {
+                    var data = db.EvenEmpre.Find(evenEmpre.Id_EvenEmpre);
+                    data.Precio_Base = evenEmpre.Precio_Base;
+                    data.Id_Tipo_Evento = evenEmpre.Id_Tipo_Evento;
+                    db.Entry(data).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    db.EvenEmpre.Add(evenEmpre);
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Details", "Empresas", new { id = evenEmpre.Id_Empresa });
             }
 
             ViewBag.Id_Empresa = new SelectList(db.Empresa, "Id_Empresa", "Nombre", evenEmpre.Id_Empresa);
             return RedirectToAction("Details", "Empresas",new { id=evenEmpre.Id_Empresa });
+        }
+
+        [HttpPost]
+        public ActionResult DeleteFromCompany(int evenEmpId,int compId)
+        {
+            try
+            {
+                EvenEmpre evenEmpre = db.EvenEmpre.Find(evenEmpId);
+                db.EvenEmpre.Remove(evenEmpre);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+            }
+            return RedirectToAction("Details", "Empresas", new { id = compId });
         }
 
         // GET: EvenEmpres/Edit/5
