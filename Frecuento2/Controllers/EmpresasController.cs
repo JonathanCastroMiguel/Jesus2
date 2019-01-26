@@ -91,6 +91,12 @@ namespace Frecuento2.Controllers
             {
                 db.Entry(empresa).State = EntityState.Modified;
                 db.SaveChanges();
+
+                if (User.IsInRole("Empresa"))
+                {
+                    return RedirectToAction("Perfil", "Home");
+                }
+
                 return RedirectToAction("Index");
             }
             return View(empresa);
