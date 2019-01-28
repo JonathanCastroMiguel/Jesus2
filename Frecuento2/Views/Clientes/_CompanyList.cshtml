@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Frecuento2.Models.evenser>
+<div class="row">
+<div class=" dvCompany ">
+    @foreach (var item in Model)
+    {
+
+<div class="dv-companylist col-sm-12 ">
+<br />
+<div class="col-sm-8">
+        
+        <div class="dv-text">
+           <label>Empresa </label> : @item.EvenEmpre.Empresa.Nombre
+        </div>  
+        <div class="dv-text">
+        <label>    Servicio </label> : @item.ServiEmpre.Tipo_Servicio.Descripción
+        </div>
+        
+
+</div>
+        <div class="col-sm-3">
+<span class="EvenSerId hidden">@item.Id</span>
+<div class="hidden dv-base">
+               @item.EvenEmpre.Precio_Base
+        </div>        
+        <div class="hidden dv-service">
+                @item.ServiEmpre.Precio_Servicio
+        </div> 
+            <div class="btn btn-success pull-right" onclick="btnAddCompany(this)">Add</div>
+        </div>
+</div>
+    }
+
+</div></div>

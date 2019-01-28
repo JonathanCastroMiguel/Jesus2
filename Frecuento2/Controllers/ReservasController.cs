@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Frecuento2.Models;
 
 namespace Frecuento2.Controllers
@@ -17,8 +18,9 @@ namespace Frecuento2.Controllers
         // GET: Reservas
         public ActionResult Index()
         {
-            var reserva = db.Reserva.Include(r => r.Cliente).Include(r => r.Empresa).Include(r => r.EvenEmpre);
-            return View(reserva.ToList());
+            int client_ID = this.GetClientIDByMail(User.Identity.GetUserName()); ;
+            var reserva = db.Reserva.Include(r => r.Cliente).Include(r => r.Empresa).Include(r => r.EvenEmpre).Where(r => r.Id_Cliente == client_ID).OrderByDescending(r => r.Fecha);
+            return View("index","_LayoutCliente",reserva.ToList());
         }
 
         // GET: Reservas/Details/5
@@ -126,6 +128,11 @@ namespace Frecuento2.Controllers
             db.Reserva.Remove(reserva);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        private int GetClientIDByMail(string mail)
+        {
+            //get from DB
+            return db.Cliente.FirstOrDefault(cliente => cliente.Email == mail).Id_Cliente;
         }
 
         protected override void Dispose(bool disposing)

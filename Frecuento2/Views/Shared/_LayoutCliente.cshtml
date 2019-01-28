@@ -21,6 +21,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("FRECUENTO", "About", "Home", new { area = "" }, new { @class = "navbar-brand" })
+           
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -28,14 +29,17 @@
                     <li>@Html.ActionLink("Carrito", "Carrito", "Home")</li>
                     <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Perfil", "Perfil", "Home")</li>
+                    <li>@Html.ActionLink("Buscador", "Buscador", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
+           
             </div>
         </div>
     </div>
 
     <div class="container body-content">
         @RenderBody()
+       
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year -Frecuento</p>

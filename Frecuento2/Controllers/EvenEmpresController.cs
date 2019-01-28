@@ -18,7 +18,7 @@ namespace Frecuento2.Controllers
         public ActionResult Index()
         {
             //var evenEmpre = db.EvenEmpre.Include(e => e.Empresa).Include(e => e.Evento);
-           return View();
+            return View();
         }
 
         // GET: EvenEmpres/Details/5
@@ -79,17 +79,36 @@ namespace Frecuento2.Controllers
                 {
                     db.EvenEmpre.Add(evenEmpre);
                     db.SaveChanges();
-                }
 
+                }
+                UpdateEvenserAfterEventChange(evenEmpre.Id_Empresa, evenEmpre.Id_EvenEmpre);
                 return RedirectToAction("Details", "Empresas", new { id = evenEmpre.Id_Empresa });
             }
 
             ViewBag.Id_Empresa = new SelectList(db.Empresa, "Id_Empresa", "Nombre", evenEmpre.Id_Empresa);
-            return RedirectToAction("Details", "Empresas",new { id=evenEmpre.Id_Empresa });
+            return RedirectToAction("Details", "Empresas", new { id = evenEmpre.Id_Empresa });
+        }
+
+        public void UpdateEvenserAfterEventChange(int Id_Empresa, int Id_EvenEmpre)
+        {
+            List<ServiEmpre> lstService = db.ServiEmpre.Where(x => x.Id_Empresa == Id_Empresa).ToList();
+            for (int i = 0; i < lstService.Count; i++)
+            {
+                int Id_ServiEmpre = lstService[i].Id_ServiEmpre;
+                evenser oldObjEvenser = db.evenser.Where(x => x.Id_Servi == Id_ServiEmpre && x.Id_Event == Id_EvenEmpre).FirstOrDefault();
+                if (oldObjEvenser == null)
+                {
+                    evenser objEvenser = new evenser();
+                    objEvenser.Id_Event = Id_EvenEmpre;
+                    objEvenser.Id_Servi = Id_ServiEmpre;
+                    db.evenser.Add(objEvenser);
+                    db.SaveChanges();
+                }
+            }
         }
 
         [HttpPost]
-        public ActionResult DeleteFromCompany(int evenEmpId,int compId)
+        public ActionResult DeleteFromCompany(int evenEmpId, int compId)
         {
             try
             {

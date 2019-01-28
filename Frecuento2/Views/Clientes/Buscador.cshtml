@@ -1,0 +1,161 @@
+﻿@{
+    ViewBag.Title = "Buscador";
+}
+
+<h2>Buscador</h2>
+
+<div class="col-sm-12 Main">
+    <div class="col-sm-2">
+        <div class="form-group">
+            @Html.DropDownList("drpEvent", new SelectList(ViewBag.EventList, "Id_Tipo_Evento", "Descripción"),  htmlAttributes : new { @class = "form-control" })
+        </div>
+        <br />
+        <div class="form-group">
+            <label>filtros</label>
+        </div>
+        <div id="chklist" class="form-group">
+        </div>
+        <div>
+            <button type="button" id="btnSearch" class="btn btn-primary btn-sm">FETCHA DEL EVENTO</button>
+        </div>
+
+    </div>
+    <div class="col-sm-6 company-main ">
+        <div id="empty-company" class="line-bottom">
+                No Empresa 
+        </div>
+        <div id="dv-company" class="">
+                
+        </div>
+    </div>
+    <div class="dv-cart col-sm-3">
+        <div class="dv-cart-heading">
+            <label>carrito</label>
+        </div>
+        <div class="cart-detail">
+            <label>Precio Base:</label>
+            <span id="span-base" class="pull-right">0</span>
+            <br />
+            <label>Precio Servicio:</label>
+            <span id="span-servicio" class="pull-right">0</span>
+        </div>
+        <div class="dv-cart-total ">
+<hr />
+           <label> Total</label>
+         <span class="cart-total pull-right">0
+        </div>
+            <br />
+        <div class="text-center">
+            <button class="btn btn-success " onclick="CheckOut()">Boton de compra</button>
+        </div>
+    </div>
+<br />
+<br />
+</div>
+
+@section Scripts {
+    <script>
+        var evenserIds = [];
+        var serviceURL = '/Clientes/BindCheckboxForService';
+        var checkoutURL = '/Clientes/CheckOut';
+        var companyURL = '/Clientes/BindCompany';
+        $(document).ready(function () {
+
+            BindCheckBox();
+            $('#drpEvent').change(function () {
+                BindCheckBox();
+            });
+
+            $('#btnSearch').click(function () {
+                BindCompany();
+            });
+        });
+
+        function BindCheckBox() {
+            var param = { eventId: $('#drpEvent').val() };
+            $.ajax({
+                type: "GET",
+                url: serviceURL,
+                data: param,
+                success: function (data) {
+                    $("#chklist").html(data);
+                },
+                error: function (ex) {
+                    alert();
+                }
+            });
+        }
+
+        function BindCompany() {
+
+            var chkService = [];
+            $.each($("input[name='chkService']:checked"), function () {
+                chkService.push($(this).val());
+            });
+
+            if (chkService.length > 0) {
+                var ser = chkService.join(", ");
+
+                var param = { serviceIds: ser };
+                $.ajax({
+                    type: "GET",
+                    url: companyURL,
+                    data: param,
+                    success: function (data) {
+                        $("#dv-company").html(data);
+
+                        $("#empty-company").hide();
+                    },
+                    error: function (ex) {
+                        alert();
+                    }
+                });
+            }
+        }
+
+        function btnAddCompany(e) {
+
+            var base = parseInt($("#span-base").text());
+            var servicio = parseInt($("#span-servicio").text());
+            var baseElement = $(e).prev().prev().text().trim()
+            var servicioElement = $(e).prev().text().trim();
+            base += parseInt(baseElement);
+            servicio += parseInt(servicioElement);
+
+            $("#span-base").text(base);
+            $("#span-servicio").text(servicio);
+            $(".cart-total").text(servicio + base);
+            evenserIds.push(parseInt($(e).prev().prev().prev().text().trim()));
+        }
+
+        function CheckOut() {
+            if (!confirm('Are you sure that you want to purchase the elements selected?')) {
+                return;
+            }
+            var strevenserIDs = evenserIds.join(", ");
+            var cartTotal = parseInt($(".cart-total").text());
+            var serviceTotal = parseInt($("#span-servicio").text());
+
+            var param = { strevenserIDs: strevenserIDs, cartTotal: cartTotal, serviceTotal: serviceTotal };
+            $.ajax({
+                type: "Post",
+                url: checkoutURL,
+                data: param,
+                success: function (data) {
+                    if (data.success == "true") {
+                        BindCheckBox();
+                        $("#dv-company").html('');
+                        $("#empty-company").show();
+                        $(".cart-total").text('0');
+                        $("#span-base").text('0');
+                        $("#span-servicio").text('0');
+                        evenserIds = [];
+                    }
+                },
+                error: function (ex) {
+                    alert();
+                }
+            });
+        }
+    </script>
+}

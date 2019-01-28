@@ -82,13 +82,31 @@ namespace Frecuento2.Controllers
                     db.ServiEmpre.Add(serviEmpre);
                     db.SaveChanges();
                 }
-               
+                UpdateEvenserAfterServiceChange(serviEmpre.Id_Empresa, serviEmpre.Id_ServiEmpre);
                 return RedirectToAction("Details", "Empresas", new { id = serviEmpre.Id_Empresa });
             }
 
             ViewBag.Id_Empresa = new SelectList(db.Empresa, "Id_Empresa", "Nombre", serviEmpre.Id_Empresa);
             ViewBag.Id_Servicio = new SelectList(db.Tipo_Servicio, "Id_Tipo_Servicio", "Descripción", serviEmpre.Id_Tipo_Servicio);
             return RedirectToAction("Details", "Empresas", new { id = serviEmpre.Id_Empresa });
+        }
+
+        public void UpdateEvenserAfterServiceChange(int Id_Empresa, int Id_ServiEmpre)
+        {
+            List<EvenEmpre> lstEvent = db.EvenEmpre.Where(x => x.Id_Empresa == Id_Empresa).ToList();
+            for (int i = 0; i < lstEvent.Count; i++)
+            {
+                int Id_EvenEmpre = lstEvent[i].Id_EvenEmpre;
+                evenser oldObjEvenser = db.evenser.Where(x => x.Id_Servi == Id_ServiEmpre && x.Id_Event == Id_EvenEmpre).FirstOrDefault();
+                if (oldObjEvenser == null)
+                {
+                    evenser objEvenser = new evenser();
+                    objEvenser.Id_Event = Id_EvenEmpre;
+                    objEvenser.Id_Servi = Id_ServiEmpre;
+                    db.evenser.Add(objEvenser);
+                    db.SaveChanges();
+                }
+            }
         }
 
         [HttpPost]

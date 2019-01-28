@@ -122,6 +122,56 @@ namespace Frecuento2.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult Buscador()
+        {
+            ViewBag.EventList = db.Tipo_Evento.ToList();
+            return View("Buscador", "_LayoutCliente", null);
+        }
+
+        [HttpGet]
+        public ActionResult BindCheckboxForService(int? eventId)
+        {
+            List<evenser> lstService = db.evenser.Where(x => x.EvenEmpre.Tipo_Evento.Id_Tipo_Evento == eventId).ToList();
+            return PartialView("_ServicesForEvent", lstService);
+        }
+
+        [HttpGet]
+        public ActionResult BindCompany(string serviceIDs)
+        {
+            List<evenser> lstService = db.evenser.Where(x => serviceIDs.Contains(x.Id.ToString())).ToList();
+            return PartialView("_CompanyList", lstService);
+        }
+
+        [HttpPost]
+        public JsonResult CheckOut(string strevenserIDs, int cartTotal, int serviceTotal)
+        {
+            int[] nums = Array.ConvertAll(strevenserIDs.Split(','), int.Parse);
+            try
+            {
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    int id = nums[i];
+                    evenser e = db.evenser.Where(x => x.Id == id).FirstOrDefault();
+                    Reserva cart = new Reserva();
+                    cart.Precio_total = cartTotal;
+                    cart.Id_Cliente = this.GetClientIDByMail(User.Identity.GetUserName()); ;
+                    cart.Id_Empresa = e.EvenEmpre.Id_Empresa;
+                    cart.Fecha = DateTime.Now;
+                    cart.EvenEmpreId_Evento = e.EvenEmpre.Id_EvenEmpre;
+                    cart.Precio_Servicios = serviceTotal;
+                    cart.Precio_base_Evento = e.EvenEmpre.Precio_Base;
+                    db.Reserva.Add(cart);
+                    db.SaveChanges();
+                }
+                return Json(new { success = "true" });
+            }
+            catch (Exception e)
+            {
+            }
+            return Json(new { success = "false" });
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -129,6 +179,11 @@ namespace Frecuento2.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        private int GetClientIDByMail(string mail)
+        {
+            //get from DB
+            return db.Cliente.SingleOrDefault(cliente => cliente.Email == mail).Id_Cliente;
         }
     }
 }

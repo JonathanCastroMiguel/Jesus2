@@ -1,10 +1,12 @@
-﻿body {
+﻿body
+{
     padding-top: 50px;
     padding-bottom: 20px;
 }
 
 /* Set padding to keep content from hitting the edges */
-.body-content {
+.body-content
+{
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -12,13 +14,79 @@
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
-.dl-horizontal dt {
+.dl-horizontal dt
+{
     white-space: normal;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
-textarea {
+textarea
+{
     max-width: 280px;
+}
+
+.chkMulti
+{
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.dv-companylist
+{
+    padding: 5px;
+}
+
+.hidden
+{
+    display: none;
+}
+
+.Main
+{
+    margin-bottom: 15px;
+}
+
+.dv-cart
+{
+    border: 2px solid #ddd;
+    padding: 15px;
+    margin-left: 15px;
+}
+
+.dv-cart-heading
+{
+    text-align: center;
+    font-size: 24px;
+}
+
+.text-center
+{
+    text-align: center;
+}
+
+.chk
+{
+    margin: 10px;
+}
+
+.company-main
+{
+    padding-top: 5px;
+}
+#dv-company
+{
+    border: 2px solid #ddd;
+
+}
+.line-bottom
+{
+    border-bottom: 2px solid #ddd;
+}
+
+.dv-text
+{
+    padding: 2px;
 }

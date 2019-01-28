@@ -55,8 +55,7 @@ namespace Frecuento2.Controllers
         public ActionResult Reservas()
         {
             ViewBag.Message = "Find new services";
-
-            return View("Reservas", "_LayoutCliente", null);
+            return RedirectToAction("Index", "Reservas");
         }
 
         public ActionResult Carrito()
@@ -92,6 +91,15 @@ namespace Frecuento2.Controllers
                 //ViewBag.EmpresaID = id;
                 return RedirectToAction("Details", "Clientes", new { @id = id });
             }
+        }
+
+        public ActionResult Buscador()
+        {
+            if (!User.IsInRole("Empresa"))
+            {
+                return RedirectToAction("Buscador", "Clientes");
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         //*** CUSTOM METHODS ***
