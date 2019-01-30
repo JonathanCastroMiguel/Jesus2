@@ -217,6 +217,7 @@
     <Compile Include="Models\Cliente.cs">
       <DependentUpon>Frecuento.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CompanyViewModel.cs" />
     <Compile Include="Models\Empresa.cs">
       <DependentUpon>Frecuento.tt</DependentUpon>
     </Compile>

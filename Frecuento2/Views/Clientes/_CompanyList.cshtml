@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Frecuento2.Models.evenser>
+﻿@model IEnumerable<Frecuento2.Models.CompanyViewModel>
 <div class="row">
 <div class=" dvCompany ">
     @foreach (var item in Model)
@@ -9,21 +9,24 @@
 <div class="col-sm-8">
         
         <div class="dv-text">
-           <label>Empresa </label> : @item.EvenEmpre.Empresa.Nombre
+           <label>Empresa </label> : @item.Nombre
         </div>  
         <div class="dv-text">
-        <label>    Servicio </label> : @item.ServiEmpre.Tipo_Servicio.Descripción
+           <label>Event </label> : @item.EventName
+        </div>  
+        <div class="dv-text">
+        <label>    Servicio </label> : @item.Services
         </div>
         
 
 </div>
         <div class="col-sm-3">
-<span class="EvenSerId hidden">@item.Id</span>
+<span class="EvenSerId hidden">@item.Id_EvenSers</span>
 <div class="hidden dv-base">
-               @item.EvenEmpre.Precio_Base
+               @item.Precio_Base
         </div>        
         <div class="hidden dv-service">
-                @item.ServiEmpre.Precio_Servicio
+                @item.Precio_Servicios
         </div> 
             <div class="btn btn-success pull-right" onclick="btnAddCompany(this)">Add</div>
         </div>

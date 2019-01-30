@@ -1,13 +1,14 @@
 ﻿@{
     ViewBag.Title = "Buscador";
+    ViewBag.ToDate="23-2-2019"; 
 }
-
+@model IEnumerable<Frecuento2.Models.CompanyViewModel>
 <h2>Buscador</h2>
 
 <div class="col-sm-12 Main">
     <div class="col-sm-2">
         <div class="form-group">
-            @Html.DropDownList("drpEvent", new SelectList(ViewBag.EventList, "Id_Tipo_Evento", "Descripción"),  htmlAttributes : new { @class = "form-control" })
+            @Html.DropDownList("drpEvent", new SelectList(ViewBag.EventList, "Id_Tipo_Evento", "Descripción"),"Select Event",  htmlAttributes : new { @class = "form-control" })
         </div>
         <br />
         <div class="form-group">
@@ -21,11 +22,11 @@
 
     </div>
     <div class="col-sm-6 company-main ">
-        <div id="empty-company" class="line-bottom">
-                No Empresa 
-        </div>
+        @*<div id="empty-company" class="line-bottom">
+            No Empresa 
+        </div>*@
         <div id="dv-company" class="">
-                
+                @{Html.RenderPartial("_CompanyList",Model);}
         </div>
     </div>
     <div class="dv-cart col-sm-3">
@@ -40,17 +41,23 @@
             <span id="span-servicio" class="pull-right">0</span>
         </div>
         <div class="dv-cart-total ">
-<hr />
-           <label> Total</label>
-         <span class="cart-total pull-right">0
+            <hr />
+            <label>Total</label>
+            <span class="cart-total pull-right">0
         </div>
-            <br />
+        <div class="dv-cart-total ">
+            <hr />
+            <label>Fecha</label>
+                
+            <input type="date" class="pull-right" id="dtFecha"/>
+        </div>
+        <br />
         <div class="text-center">
             <button class="btn btn-success " onclick="CheckOut()">Boton de compra</button>
         </div>
     </div>
-<br />
-<br />
+    <br />
+    <br />
 </div>
 
 @section Scripts {
@@ -61,7 +68,14 @@
         var companyURL = '/Clientes/BindCompany';
         $(document).ready(function () {
 
-            BindCheckBox();
+            //BindCheckBox();
+            var now = new Date();
+
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+            var today = now.getFullYear() + "-" + (month) + "-" + (day);
+            $("#dtFecha").val(today);
             $('#drpEvent').change(function () {
                 BindCheckBox();
             });
@@ -72,18 +86,23 @@
         });
 
         function BindCheckBox() {
-            var param = { eventId: $('#drpEvent').val() };
-            $.ajax({
-                type: "GET",
-                url: serviceURL,
-                data: param,
-                success: function (data) {
-                    $("#chklist").html(data);
-                },
-                error: function (ex) {
-                    alert();
-                }
-            });
+            if ($('#drpEvent').val() != null && $('#drpEvent').val() > 0) {
+                var param = { eventId: $('#drpEvent').val() };
+                $.ajax({
+                    type: "GET",
+                    url: serviceURL,
+                    data: param,
+                    success: function (data) {
+                        $("#chklist").html(data);
+                    },
+                    error: function (ex) {
+                        alert();
+                    }
+                });
+            }
+            else {
+                location.reload();
+            }
         }
 
         function BindCompany() {
@@ -93,10 +112,10 @@
                 chkService.push($(this).val());
             });
 
-            if (chkService.length > 0) {
+            if (true) {
                 var ser = chkService.join(", ");
 
-                var param = { serviceIds: ser };
+                var param = { serviceIds: ser, eventId: $('#drpEvent').val() };
                 $.ajax({
                     type: "GET",
                     url: companyURL,
@@ -107,14 +126,13 @@
                         $("#empty-company").hide();
                     },
                     error: function (ex) {
-                        alert();
+                        //alert();
                     }
                 });
             }
         }
 
         function btnAddCompany(e) {
-
             var base = parseInt($("#span-base").text());
             var servicio = parseInt($("#span-servicio").text());
             var baseElement = $(e).prev().prev().text().trim()
@@ -125,7 +143,7 @@
             $("#span-base").text(base);
             $("#span-servicio").text(servicio);
             $(".cart-total").text(servicio + base);
-            evenserIds.push(parseInt($(e).prev().prev().prev().text().trim()));
+            evenserIds.push($(e).prev().prev().prev().text().trim());
         }
 
         function CheckOut() {
@@ -135,8 +153,9 @@
             var strevenserIDs = evenserIds.join(", ");
             var cartTotal = parseInt($(".cart-total").text());
             var serviceTotal = parseInt($("#span-servicio").text());
+            var Fecha = $("#dtFecha").val();
 
-            var param = { strevenserIDs: strevenserIDs, cartTotal: cartTotal, serviceTotal: serviceTotal };
+            var param = { strevenserIDs: strevenserIDs, cartTotal: cartTotal, serviceTotal: serviceTotal, Fecha: Fecha };
             $.ajax({
                 type: "Post",
                 url: checkoutURL,
@@ -150,6 +169,7 @@
                         $("#span-base").text('0');
                         $("#span-servicio").text('0');
                         evenserIds = [];
+                        location.reload();
                     }
                 },
                 error: function (ex) {

@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Frecuento2.Models.evenser>
+﻿@model IEnumerable<Frecuento2.Models.Tipo_Servicio>
 
 <div class="form-group chkMulti">
     @foreach (var item in Model)
     {
         <div class="chk">
-        <input type="checkbox" value= @item.Id name="chkService" /> @item.ServiEmpre.Tipo_Servicio.Descripción
+        <input type="checkbox" value= @item.Id_Tipo_Servicio name="chkService" /> @item.Descripción
 
 </div>    
     }
