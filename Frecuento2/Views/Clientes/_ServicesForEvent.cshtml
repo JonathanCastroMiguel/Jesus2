@@ -4,9 +4,8 @@
     @foreach (var item in Model)
     {
         <div class="chk">
-        <input type="checkbox" value= @item.Id_Tipo_Servicio name="chkService" /> @item.Descripción
+        <input type="checkbox" value= @item.Id_Tipo_Servicio name="chkService" class="chk-Service" onclick="BindCompany()" /> @item.Descripción
 
 </div>    
     }
 </div>
-

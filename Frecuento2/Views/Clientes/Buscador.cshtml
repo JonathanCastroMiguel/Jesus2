@@ -1,6 +1,5 @@
 ﻿@{
     ViewBag.Title = "Buscador";
-    ViewBag.ToDate="23-2-2019"; 
 }
 @model IEnumerable<Frecuento2.Models.CompanyViewModel>
 <h2>Buscador</h2>
@@ -22,9 +21,9 @@
 
     </div>
     <div class="col-sm-6 company-main ">
-        @*<div id="empty-company" class="line-bottom">
+        <div id="empty-company">
             No Empresa 
-        </div>*@
+        </div>
         <div id="dv-company" class="">
                 @{Html.RenderPartial("_CompanyList",Model);}
         </div>
@@ -34,14 +33,19 @@
             <label>carrito</label>
         </div>
         <div class="cart-detail">
-            <label>Precio Base:</label>
-            <span id="span-base" class="pull-right">0</span>
-            <br />
-            <label>Precio Servicio:</label>
-            <span id="span-servicio" class="pull-right">0</span>
+            <div class="hidden">
+                <label>Precio Base:</label>
+                <span id="span-base" class="pull-right">0</span>
+                <br />
+                <label>Precio Servicio:</label>
+                <span id="span-servicio" class="pull-right">0</span>
+            </div>
+            <div id="dv-cart-detail">
+
+            </div>
         </div>
         <div class="dv-cart-total ">
-            <hr />
+            
             <label>Total</label>
             <span class="cart-total pull-right">0
         </div>
@@ -64,10 +68,11 @@
     <script>
         var evenserIds = [];
         var serviceURL = '/Clientes/BindCheckboxForService';
+        var bindCompany = '/Clientes/Buscador';
         var checkoutURL = '/Clientes/CheckOut';
         var companyURL = '/Clientes/BindCompany';
         $(document).ready(function () {
-
+            $("#empty-company").hide();
             //BindCheckBox();
             var now = new Date();
 
@@ -78,11 +83,13 @@
             $("#dtFecha").val(today);
             $('#drpEvent').change(function () {
                 BindCheckBox();
+
             });
 
             $('#btnSearch').click(function () {
                 BindCompany();
             });
+
         });
 
         function BindCheckBox() {
@@ -94,6 +101,7 @@
                     data: param,
                     success: function (data) {
                         $("#chklist").html(data);
+                        BindCompany();
                     },
                     error: function (ex) {
                         alert();
@@ -101,12 +109,30 @@
                 });
             }
             else {
-                location.reload();
+                var param = { fromUI: true };
+                $.ajax({
+                    type: "GET",
+                    url: bindCompany,
+                    data: param,
+                    success: function (data) {
+                        $("#chklist").html('');
+                        $("#dv-company").html(data);
+
+                        if (data.length > 60) {
+                            $("#empty-company").hide();
+                        }
+                        else {
+                            $("#empty-company").show();
+                        }
+                    },
+                    error: function (ex) {
+                        alert();
+                    }
+                });
             }
         }
 
         function BindCompany() {
-
             var chkService = [];
             $.each($("input[name='chkService']:checked"), function () {
                 chkService.push($(this).val());
@@ -121,18 +147,29 @@
                     url: companyURL,
                     data: param,
                     success: function (data) {
+                        debugger
                         $("#dv-company").html(data);
-
-                        $("#empty-company").hide();
+                        if (data.length > 60) {
+                            $("#empty-company").hide();
+                        }
+                        else {
+                            $("#empty-company").show();
+                        }
                     },
                     error: function (ex) {
-                        //alert();
+                        alert();
                     }
                 });
             }
         }
 
         function btnAddCompany(e) {
+            //Generate Div
+
+            var eventName = $(e).parent().parent().find(".span-event-name").text();
+
+
+
             var base = parseInt($("#span-base").text());
             var servicio = parseInt($("#span-servicio").text());
             var baseElement = $(e).prev().prev().text().trim()
@@ -140,6 +177,12 @@
             base += parseInt(baseElement);
             servicio += parseInt(servicioElement);
 
+            var content = '<label>' + eventName + ' Precio Base : </label>' +
+                           '<span class="pull-right">' + baseElement + '</span><br />' +
+                           '<label>' + eventName + 'Precio Servicio : </label>' +
+                           '<span class="pull-right">' + servicioElement + '</span> <hr />';
+
+            $("#dv-cart-detail").append(content);
             $("#span-base").text(base);
             $("#span-servicio").text(servicio);
             $(".cart-total").text(servicio + base);
@@ -168,6 +211,7 @@
                         $(".cart-total").text('0');
                         $("#span-base").text('0');
                         $("#span-servicio").text('0');
+                        $("#dv-cart-detail").html('');
                         evenserIds = [];
                         location.reload();
                     }

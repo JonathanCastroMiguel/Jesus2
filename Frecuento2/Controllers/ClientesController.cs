@@ -123,7 +123,7 @@ namespace Frecuento2.Controllers
         }
 
         [HttpGet]
-        public ActionResult Buscador()
+        public ActionResult Buscador(bool fromUI = false)
         {
             ViewBag.EventList = db.Tipo_Evento.ToList();
             List<Tipo_Evento> lstEvent = db.Tipo_Evento.ToList();
@@ -158,6 +158,10 @@ namespace Frecuento2.Controllers
                         lstCompanyViewModel.Add(model);
                     }
                 }
+            }
+            if (fromUI)
+            {
+                return PartialView("_CompanyList", lstCompanyViewModel);
             }
             return View("Buscador", "_LayoutCliente", lstCompanyViewModel);
         }
