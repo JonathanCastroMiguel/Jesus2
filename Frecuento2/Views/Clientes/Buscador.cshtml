@@ -59,6 +59,10 @@
         <div class="text-center">
             <button class="btn btn-success " onclick="CheckOut()">Boton de compra</button>
         </div>
+<br />
+        <div class="text-center">
+            <button class="btn btn-primary " onclick="ClearCart()">Claro carrito</button>
+        </div>
     </div>
     <br />
     <br />
@@ -71,9 +75,7 @@
         var bindCompany = '/Clientes/Buscador';
         var checkoutURL = '/Clientes/CheckOut';
         var companyURL = '/Clientes/BindCompany';
-        $(document).ready(function () {
-            $("#empty-company").hide();
-            //BindCheckBox();
+        function BindDate() {
             var now = new Date();
 
             var day = ("0" + now.getDate()).slice(-2);
@@ -81,6 +83,12 @@
 
             var today = now.getFullYear() + "-" + (month) + "-" + (day);
             $("#dtFecha").val(today);
+        }
+        $(document).ready(function () {
+            $("#empty-company").hide();
+            //BindCheckBox();
+            BindDate();
+
             $('#drpEvent').change(function () {
                 BindCheckBox();
 
@@ -139,7 +147,7 @@
             });
 
             if (true) {
-                var ser = chkService.join(", ");
+                var ser = chkService.join(",");
 
                 var param = { serviceIds: ser, eventId: $('#drpEvent').val() };
                 $.ajax({
@@ -147,7 +155,6 @@
                     url: companyURL,
                     data: param,
                     success: function (data) {
-                        debugger
                         $("#dv-company").html(data);
                         if (data.length > 60) {
                             $("#empty-company").hide();
@@ -167,9 +174,6 @@
             //Generate Div
 
             var eventName = $(e).parent().parent().find(".span-event-name").text();
-
-
-
             var base = parseInt($("#span-base").text());
             var servicio = parseInt($("#span-servicio").text());
             var baseElement = $(e).prev().prev().text().trim()
@@ -177,10 +181,12 @@
             base += parseInt(baseElement);
             servicio += parseInt(servicioElement);
 
-            var content = '<label>' + eventName + ' Precio Base : </label>' +
+            var Evenempre_Id = $(e).prev().prev().prev().text().trim();
+
+            var content = '<div class="dv-carrito"><label>' + eventName + ' Precio Base : </label>' +
                            '<span class="pull-right">' + baseElement + '</span><br />' +
                            '<label>' + eventName + 'Precio Servicio : </label>' +
-                           '<span class="pull-right">' + servicioElement + '</span> <hr />';
+                           '<span class="pull-right dv-servicio">' + servicioElement + '</span> <span class="hidden Evenempre_Id">' + Evenempre_Id + '</span></div><hr />';
 
             $("#dv-cart-detail").append(content);
             $("#span-base").text(base);
@@ -188,38 +194,50 @@
             $(".cart-total").text(servicio + base);
             evenserIds.push($(e).prev().prev().prev().text().trim());
         }
-
+        function ClearCart() {
+            $(".cart-total").text('0');
+            $("#span-base").text('0');
+            $("#span-servicio").text('0');
+            $("#dv-cart-detail").html('');
+            BindDate();
+        }
         function CheckOut() {
+            var numItems = $('.dv-carrito').length;
+            if (numItems == undefined || numItems == 0) {
+                return;
+            }
             if (!confirm('Are you sure that you want to purchase the elements selected?')) {
                 return;
             }
-            var strevenserIDs = evenserIds.join(", ");
-            var cartTotal = parseInt($(".cart-total").text());
-            var serviceTotal = parseInt($("#span-servicio").text());
-            var Fecha = $("#dtFecha").val();
+           
 
-            var param = { strevenserIDs: strevenserIDs, cartTotal: cartTotal, serviceTotal: serviceTotal, Fecha: Fecha };
-            $.ajax({
-                type: "Post",
-                url: checkoutURL,
-                data: param,
-                success: function (data) {
-                    if (data.success == "true") {
-                        BindCheckBox();
-                        $("#dv-company").html('');
-                        $("#empty-company").show();
-                        $(".cart-total").text('0');
-                        $("#span-base").text('0');
-                        $("#span-servicio").text('0');
-                        $("#dv-cart-detail").html('');
-                        evenserIds = [];
-                        location.reload();
+            $('.dv-carrito').each(function (i, obj) {
+                var Evenempre_Id=$(obj).find('.Evenempre_Id').text()
+                var serviceTotal = $(obj).find('.dv-servicio').text();
+                var Fecha = $("#dtFecha").val();
+
+                var param = { Evenempre_Id: Evenempre_Id, serviceTotal: serviceTotal, Fecha: Fecha };
+                $.ajax({
+                    type: "Post",
+                    url: checkoutURL,
+                    data: param,
+                    async:false,
+                    success: function (data) {
+                        if (data.success == "true") {
+                        }
+                    },
+                    error: function (ex) {
+                        alert();
                     }
-                },
-                error: function (ex) {
-                    alert();
-                }
+                });
             });
+            
+            $("#dv-company").html('');
+            BindCheckBox();
+            //$("#empty-company").show();
+            ClearCart();
+            evenserIds = [];
+            //location.reload();
         }
     </script>
 }

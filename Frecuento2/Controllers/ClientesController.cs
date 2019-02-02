@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -91,6 +92,10 @@ namespace Frecuento2.Controllers
             {
                 db.Entry(cliente).State = EntityState.Modified;
                 db.SaveChanges();
+                if (User.IsInRole("Cliente"))
+                {
+                    return RedirectToAction("Perfil", "Home");
+                }
                 return RedirectToAction("Index");
             }
             return View(cliente);
@@ -143,7 +148,7 @@ namespace Frecuento2.Controllers
 
                         CompanyViewModel model = new CompanyViewModel();
                         EvenEmpre objEvenEmpre = db.EvenEmpre.Where(x => x.Tipo_Evento.Id_Tipo_Evento == eventId && x.Id_Empresa == companyID).FirstOrDefault();
-
+                        model.Id_EvenEmpre = objEvenEmpre.Id_EvenEmpre;
                         model.Nombre = objEvenEmpre.Empresa.Nombre;
                         model.Precio_Base = objEvenEmpre.Precio_Base;
                         model.EventName = objEvenEmpre.Tipo_Evento.Descripción;
@@ -191,31 +196,31 @@ namespace Frecuento2.Controllers
                     int companyID = lstCompany[i];
                     List<evenser> lstEvenSer = db.evenser.Where(x => x.EvenEmpre.Tipo_Evento.Id_Tipo_Evento == eventId && x.ServiEmpre.Id_Empresa == companyID).ToList();
 
-                    List<int> lstAllServicesByCompany = lstEvenSer.Select(x => x.ServiEmpre.Tipo_Servicio.Id_Tipo_Servicio).Distinct().ToList();
+                    List<string> lstAllServicesByCompany = lstEvenSer.Select(x => x.ServiEmpre.Tipo_Servicio.Descripción).Distinct().ToList();
                     bool results = true;
                     if (!string.IsNullOrEmpty(serviceIDs) && serviceIDs.Length > 0)
                     {
-                        List<int> selectedServices = serviceIDs.Split(',').Select(int.Parse).ToList();
+                        List<string> selectedServices = serviceIDs.Split(',').ToList();
                         results = selectedServices.All(j => lstAllServicesByCompany.Contains(j));
                     }
                     if (results)
                     {
                         CompanyViewModel model = new CompanyViewModel();
                         EvenEmpre objEvenEmpre = db.EvenEmpre.Where(x => x.Tipo_Evento.Id_Tipo_Evento == eventId && x.Id_Empresa == companyID).FirstOrDefault();
-
+                        model.Id_EvenEmpre = objEvenEmpre.Id_EvenEmpre;
                         model.Nombre = objEvenEmpre.Empresa.Nombre;
                         model.Precio_Base = objEvenEmpre.Precio_Base;
                         model.EventName = objEvenEmpre.Tipo_Evento.Descripción;
                         if (!string.IsNullOrEmpty(serviceIDs) && serviceIDs.Length > 0)
                         {
-                            List<ServiEmpre> lstServiceEmpre = db.evenser.Where(x => x.ServiEmpre.Id_Empresa == companyID && x.EvenEmpre.Tipo_Evento.Id_Tipo_Evento == eventId && serviceIDs.Contains(x.ServiEmpre.Tipo_Servicio.Id_Tipo_Servicio.ToString())).Select(x => x.ServiEmpre).ToList();
+                            List<ServiEmpre> lstServiceEmpre = db.evenser.Where(x => x.ServiEmpre.Id_Empresa == companyID && x.EvenEmpre.Tipo_Evento.Id_Tipo_Evento == eventId && serviceIDs.Contains(x.ServiEmpre.Tipo_Servicio.Descripción.ToString())).Select(x => x.ServiEmpre).ToList();
 
                             model.Services = string.Join(",", lstServiceEmpre
                                     .GroupBy(x => x.Tipo_Servicio.Id_Tipo_Servicio)
                                   .Select(p => p.FirstOrDefault().Tipo_Servicio.Descripción.ToString()));
                             model.Precio_Servicios = Convert.ToInt32(lstServiceEmpre.Sum(x => x.Precio_Servicio).ToString());
 
-                            model.Id_EvenSers = string.Join(",", db.evenser.Where(x => x.EvenEmpre.Tipo_Evento.Id_Tipo_Evento == eventId && x.ServiEmpre.Id_Empresa == companyID && serviceIDs.Contains(x.ServiEmpre.Tipo_Servicio.Id_Tipo_Servicio.ToString())).Select(x => x.Id));
+                            model.Id_EvenSers = string.Join(",", db.evenser.Where(x => x.EvenEmpre.Tipo_Evento.Id_Tipo_Evento == eventId && x.ServiEmpre.Id_Empresa == companyID && x.ServiEmpre.Tipo_Servicio.Descripción.ToString().Contains(serviceIDs)).Select(x => x.Id));
                         }
                         else
                         {
@@ -241,26 +246,23 @@ namespace Frecuento2.Controllers
         }
 
         [HttpPost]
-        public JsonResult CheckOut(string strevenserIDs, int cartTotal, int serviceTotal, string Fecha)
+        public JsonResult CheckOut(string Evenempre_Id, int serviceTotal, string Fecha)
         {
-            int[] nums = Array.ConvertAll(strevenserIDs.Split(','), int.Parse);
             try
             {
-                for (int i = 0; i < nums.Length; i++)
-                {
-                    int id = nums[i];
-                    evenser e = db.evenser.Where(x => x.Id == id).FirstOrDefault();
-                    Reserva cart = new Reserva();
-                    cart.Precio_total = cartTotal;
-                    cart.Id_Cliente = this.GetClientIDByMail(User.Identity.GetUserName()); ;
-                    cart.Id_Empresa = e.EvenEmpre.Id_Empresa;
-                    cart.Fecha = Convert.ToDateTime(Fecha);
-                    cart.EvenEmpreId_Evento = e.EvenEmpre.Id_EvenEmpre;
-                    cart.Precio_Servicios = serviceTotal;
-                    cart.Precio_base_Evento = e.EvenEmpre.Precio_Base;
-                    db.Reserva.Add(cart);
-                    db.SaveChanges();
-                }
+                int id_evenEmpre = Convert.ToInt32(Evenempre_Id);
+                EvenEmpre evenEmpre = db.EvenEmpre.Where(x => x.Id_EvenEmpre == id_evenEmpre).FirstOrDefault();
+
+                Reserva cart = new Reserva();
+                cart.Precio_total = evenEmpre.Precio_Base + serviceTotal;
+                cart.Id_Cliente = this.GetClientIDByMail(User.Identity.GetUserName()); ;
+                cart.Id_Empresa = evenEmpre.Id_Empresa;
+                cart.Fecha = Convert.ToDateTime(Fecha);
+                cart.EvenEmpreId_Evento = evenEmpre.Id_EvenEmpre;
+                cart.Precio_Servicios = serviceTotal;
+                cart.Precio_base_Evento = evenEmpre.Precio_Base;
+                db.Reserva.Add(cart);
+                db.SaveChanges();
                 return Json(new { success = "true" });
             }
             catch (Exception e)

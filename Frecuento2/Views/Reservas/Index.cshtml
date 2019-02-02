@@ -23,6 +23,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Precio_Servicios)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio_total)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -41,6 +44,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Precio_Servicios)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio_total)
         </td>
     </tr>
 }
