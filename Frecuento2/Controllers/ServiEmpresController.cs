@@ -118,7 +118,7 @@ namespace Frecuento2.Controllers
                 db.ServiEmpre.Remove(evenEmpre);
                 db.SaveChanges();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
             }

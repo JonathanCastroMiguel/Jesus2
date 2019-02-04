@@ -19,8 +19,14 @@ namespace Frecuento2.Controllers
         public ActionResult Index()
         {
             int client_ID = this.GetClientIDByMail(User.Identity.GetUserName()); ;
-            var reserva = db.Reserva.Include(r => r.Cliente).Include(r => r.Empresa).Include(r => r.EvenEmpre).Where(r => r.Id_Cliente == client_ID).OrderByDescending(r => r.Fecha);
-            return View("index","_LayoutCliente",reserva.ToList());
+            var reserva = db.Reserva.Include(r => r.Cliente).Include(r => r.Empresa).Include(r => r.EvenEmpre).Where(r => r.Id_Cliente == client_ID).OrderByDescending(r => r.Fecha).ToList();
+            return View("index", "_LayoutCliente", reserva.ToList());
+        }
+
+        public ActionResult ReservasAdmin()
+        {
+            var reserva = db.Reserva.ToList();
+            return View("index", "_LayoutAdmin", reserva.ToList());
         }
 
         // GET: Reservas/Details/5
@@ -129,6 +135,7 @@ namespace Frecuento2.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
         private int GetClientIDByMail(string mail)
         {
             //get from DB

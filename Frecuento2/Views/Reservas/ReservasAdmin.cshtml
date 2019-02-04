@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Frecuento2.Models.Reserva>
+
+@{
+    ViewBag.Title = "ReservasAdmin";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Reservas</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Empresa.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EvenEmpre.Tipo_Evento.Descripción)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio_total)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Empresa.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EvenEmpre.Tipo_Evento.Descripción)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio_total)
+            </td>
+ 
+        </tr>
+    }
+</table>
