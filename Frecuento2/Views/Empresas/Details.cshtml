@@ -109,7 +109,7 @@
 
                                 @Html.Hidden("compId", Model.Id_Empresa)
                                 @Html.Hidden("evenEmpId", item.Id_EvenEmpre)
-                                <button type="submit"  onclick="return confirm('Are you sure want to delete?')" id="btnDeleteCancel" value="Cancel" class="btn btn-danger" >Delete</button>        
+                                <button type="button"  onclick="return DeleteRowEvent(this)" id="btnDeleteCancel" value="Cancel" class="btn btn-danger" >Delete</button>        
                             }
 
                         </td>
@@ -168,7 +168,7 @@
 
                                 @Html.Hidden("compId", Model.Id_Empresa)
                                 @Html.Hidden("servEmpId", item.Id_ServiEmpre)
-                                <button type="submit" onclick="return confirm('Are you sure want to delete?')" id="btnDeleteCancel" value="Cancel" class="btn btn-danger" >Delete</button>
+                                <button type="button" onclick="return DeleteRowService(this)" id="btnDeleteCancel" value="Cancel" class="btn btn-danger" >Delete</button>
                             }
                         </td>
 
@@ -242,7 +242,8 @@
 
 
 <script>
-
+    var DeleteEvent = '/EvenEmpres/DeleteFromCompany';
+    var DeleteService = '/ServiEmpres/DeleteFromCompany';
     function onEventEditClick(id, price, eventId) {
         $("#Id_EvenEmpre").val(id);
         $("#Precio_Base").val(price);
@@ -271,11 +272,48 @@
         $("#Id_ServiEmpre").val(0);
     }
 
+    function DeleteRowEvent(e) {
+        if (!confirm('Are you sure want to delete?')) {
+            return false;
+        }
+        var param = { evenEmpId: $(e).prev().val(), compId: $(e).prev().prev().val() };
+        $(e).parent().parent().parent().hide();
+        $.ajax({
+            type: "Post",
+            url: DeleteEvent,
+            data: param,
+            async: false,
+            success: function (data) {
+                if (data.success == "true") {
+                }
+            },
+            error: function (ex) {
+                alert();
+            }
+        });
+    }
+    function DeleteRowService(e) {
+
+        if (!confirm('Are you sure want to delete?')) {
+            return false;
+        }
+        var param = { servEmpId: $(e).prev().val(), compId: $(e).prev().prev().val() };
+        $(e).parent().parent().parent().hide();
+        $.ajax({
+            type: "Post",
+            url: DeleteService,
+            data: param,
+            async: false,
+            success: function (data) {
+                if (data.success == "true") {
+                }
+            },
+            error: function (ex) {
+                alert();
+            }
+        });
+    }
     $(document).ready(function () {
-
-
-
-
 
     });
 </script>

@@ -13,7 +13,10 @@
             @Html.DisplayNameFor(model => model.Fecha)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Empresa.Nombre)
+          Empresa  @Html.DisplayNameFor(model => model.Empresa.Nombre)
+        </th>
+        <th>
+           Cliente @Html.DisplayNameFor(model => model.Cliente.Nombre)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.EvenEmpre.Tipo_Evento.Descripción)
@@ -24,20 +27,23 @@
     </tr>
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Empresa.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EvenEmpre.Tipo_Evento.Descripción)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Precio_total)
-            </td>
- 
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Empresa.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EvenEmpre.Tipo_Evento.Descripción)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio_total)
+        </td>
+
+    </tr>
     }
 </table>

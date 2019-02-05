@@ -110,19 +110,25 @@ namespace Frecuento2.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteFromCompany(int servEmpId, int compId)
+        public JsonResult DeleteFromCompany(int servEmpId, int compId)
         {
             try
             {
-                ServiEmpre evenEmpre = db.ServiEmpre.Find(servEmpId);
-                db.ServiEmpre.Remove(evenEmpre);
+                ServiEmpre serviEmpre = db.ServiEmpre.Find(servEmpId);
+
+                foreach (var item in serviEmpre.evenser.ToList())
+                {
+                    db.evenser.Remove(item);
+                }
+
+                db.ServiEmpre.Remove(serviEmpre);
                 db.SaveChanges();
             }
             catch (Exception ex)
             {
-
+                 return Json(new { success = "false" });
             }
-            return RedirectToAction("Details", "Empresas", new { id = compId });
+            return Json(new { success = "true" });
         }
 
         // GET: ServiEmpres/Edit/5

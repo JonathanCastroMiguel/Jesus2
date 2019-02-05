@@ -26,7 +26,7 @@ namespace Frecuento2.Controllers
         public ActionResult ReservasAdmin()
         {
             var reserva = db.Reserva.ToList();
-            return View("index", "_LayoutAdmin", reserva.ToList());
+            return View(reserva.ToList());
         }
 
         // GET: Reservas/Details/5
