@@ -25,8 +25,46 @@ namespace Frecuento2.Controllers
 
         public ActionResult ReservasAdmin()
         {
+            ViewBag.EventList = db.Tipo_Evento.ToList();
+            ViewBag.CompanyList = db.Empresa.ToList();
+
             var reserva = db.Reserva.ToList();
             return View(reserva.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult ReservaSearch(int? eventId, int? compId, DateTime? date)
+        {
+            try
+            {
+                var reserva = db.Reserva.ToList();
+
+                if (eventId != null && eventId > 0)
+                {
+                    reserva = reserva.Where(s => s.EvenEmpre.Id_Tipo_Evento == eventId).ToList();
+                }
+
+                if (compId != null && compId > 0)
+                {
+                    reserva = reserva.Where(s => s.Empresa.Id_Empresa == compId).ToList();
+                }
+
+                if (date!=null && date.HasValue)
+                {
+                    reserva = reserva.Where(s => s.Fecha == Convert.ToDateTime(date)).ToList();
+                }
+
+                ViewBag.EventList = db.Tipo_Evento.ToList();
+                ViewBag.CompanyList = db.Empresa.ToList();
+
+                return View("ReservasAdmin", reserva);
+            }
+            catch (Exception ex)
+            {
+                return View("ReservasAdmin", new List<Reserva>());
+
+            }
+            return Json(new { success = "true" });
         }
 
         // GET: Reservas/Details/5
