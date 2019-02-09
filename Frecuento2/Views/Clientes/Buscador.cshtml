@@ -7,16 +7,16 @@
 <div class="col-sm-12 Main">
     <div class="col-sm-2">
         <div class="form-group">
-            @Html.DropDownList("drpEvent", new SelectList(ViewBag.EventList, "Id_Tipo_Evento", "Descripción"),"Select Event",  htmlAttributes : new { @class = "form-control" })
+            @Html.DropDownList("drpEvent", new SelectList(ViewBag.EventList, "Id_Tipo_Evento", "Descripción"),"Eventos",  htmlAttributes : new { @class = "form-control" })
         </div>
         <br />
         <div class="form-group">
-            <label>filtros</label>
+            <label>Servicios</label>
         </div>
         <div id="chklist" class="form-group">
         </div>
         <div>
-            <button type="button" id="btnSearch" class="btn btn-primary btn-sm">FETCHA DEL EVENTO</button>
+            <button type="button" id="btnSearch" class="btn btn-primary btn-sm">Filtros del evento</button>
         </div>
 
     </div>
@@ -61,7 +61,7 @@
         </div>
 <br />
         <div class="text-center">
-            <button class="btn btn-primary " onclick="ClearCart()">Claro carrito</button>
+            <button class="btn btn-primary " onclick="ClearCart()">Borrar</button>
         </div>
     </div>
     <br />
@@ -206,7 +206,7 @@
             if (numItems == undefined || numItems == 0) {
                 return;
             }
-            if (!confirm('Are you sure that you want to purchase the elements selected?')) {
+            if (!confirm('¿Está seguro de que desea comprar el evento seleccionado?')) {
                 return;
             }
            

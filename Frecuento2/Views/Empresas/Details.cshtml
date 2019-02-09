@@ -50,8 +50,8 @@
 
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id_Empresa }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id_Empresa }) 
+
 </p>
 
 <div class="row">
@@ -74,8 +74,8 @@
                     @Html.TextBox("Precio_Base", "", new { @type = "number", @class = "form-control" })
                 </div>
                 <div class="col-sm-4">
-                    <input type="submit" value="Save" id="btnEvent" class="btn btn-default" />
-                    <input type="button" onclick="EventCancelClick()" id="btnEventCancel" value="Cancel" style="display:none" class="btn btn-default" />
+                    <input type="submit" value="Guardar" id="btnEvent" class="btn btn-default" />
+                    <input type="button" onclick="EventCancelClick()" id="btnEventCancel" value="Cancelar" style="display:none" class="btn btn-default" />
 
                 </div>
             </div>
@@ -105,11 +105,11 @@
                         <td>
                             @using (Html.BeginForm("DeleteFromCompany", "EvenEmpres"))
                             {
-                                <button type="button" value="Edit" onclick="onEventEditClick(@item.Id_EvenEmpre,@item.Precio_Base,@item.Id_Tipo_Evento)" class="btn btn-default">Edit</button>
+                                <button type="button" value="Editar" onclick="onEventEditClick(@item.Id_EvenEmpre,@item.Precio_Base,@item.Id_Tipo_Evento)" class="btn btn-default">Editar</button>
 
                                 @Html.Hidden("compId", Model.Id_Empresa)
                                 @Html.Hidden("evenEmpId", item.Id_EvenEmpre)
-                                <button type="button"  onclick="return DeleteRowEvent(this)" id="btnDeleteCancel" value="Cancel" class="btn btn-danger" >Delete</button>        
+                                <button type="button"  onclick="return DeleteRowEvent(this)" id="btnDeleteCancel" value="Cancelar" class="btn btn-danger" >Borrar</button>        
                             }
 
                         </td>
@@ -134,8 +134,8 @@
                     @Html.TextBox("Precio_Servicio", "", new { @type = "number", @class = "form-control" })
                 </div>
                 <div class="col-sm-4">
-                    <input type="submit" id="btnService" value="Save" class="btn btn-default" />
-                    <input type="button" onclick="ServiceCancelClick()" id="btnServiceCancel" value="Cancel" style="display:none" class="btn btn-default" />
+                    <input type="submit" id="btnService" value="Guardar" class="btn btn-default" />
+                    <input type="button" onclick="ServiceCancelClick()" id="btnServiceCancel" value="Cancelar" style="display:none" class="btn btn-default" />
                 </div>
             </div>
         }
@@ -164,11 +164,11 @@
                         <td>
                             @using (Html.BeginForm("DeleteFromCompany", "ServiEmpres"))
                             {
-                                <button type="button" value="Edit" onclick="onServiceEditClick(@item.Id_ServiEmpre,@item.Precio_Servicio,@item.Id_Tipo_Servicio)" class="btn btn-default">Edit</button>
+                                <button type="button" value="Editar" onclick="onServiceEditClick(@item.Id_ServiEmpre,@item.Precio_Servicio,@item.Id_Tipo_Servicio)" class="btn btn-default">Editar</button>
 
                                 @Html.Hidden("compId", Model.Id_Empresa)
                                 @Html.Hidden("servEmpId", item.Id_ServiEmpre)
-                                <button type="button" onclick="return DeleteRowService(this)" id="btnDeleteCancel" value="Cancel" class="btn btn-danger" >Delete</button>
+                                <button type="button" onclick="return DeleteRowService(this)" id="btnDeleteCancel" value="Cancelar" class="btn btn-danger" >Borrar</button>
                             }
                         </td>
 
@@ -253,7 +253,7 @@
     }
 
     function EventCancelClick() {
-        $("#btnEvent").val("Save");
+        $("#btnEvent").val("Guardar");
         $("#btnEventCancel").hide();
         $("#Id_EvenEmpre").val(0);
     }
@@ -262,18 +262,18 @@
         $("#Id_ServiEmpre").val(id);
         $("#Precio_Servicio").val(price);
         $("#Id_Tipo_Servicio").val(serId);
-        $("#btnService").val("Update");
+        $("#btnService").val("Guardar");
         $("#btnServiceCancel").show();
     }
 
     function ServiceCancelClick() {
-        $("#btnService").val("Save");
+        $("#btnService").val("Guardar");
         $("#btnServiceCancel").hide();
         $("#Id_ServiEmpre").val(0);
     }
 
     function DeleteRowEvent(e) {
-        if (!confirm('Are you sure want to delete?')) {
+        if (!confirm('¿Seguro que quieres borrar el evento?')) {
             return false;
         }
         var param = { evenEmpId: $(e).prev().val(), compId: $(e).prev().prev().val() };
@@ -294,7 +294,7 @@
     }
     function DeleteRowService(e) {
 
-        if (!confirm('Are you sure want to delete?')) {
+        if (!confirm('¿Seguro que quieres borrar el servicio?')) {
             return false;
         }
         var param = { servEmpId: $(e).prev().val(), compId: $(e).prev().prev().val() };

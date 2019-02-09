@@ -19,7 +19,8 @@ namespace Frecuento2.Controllers
         // GET: Empresas
         public ActionResult Index()
         {
-            return View(db.Empresa.ToList());
+            List<Empresa> Empresas = db.Empresa.ToList();
+            return View("Index", "_LayoutAdmin", Empresas);
         }
 
         // GET: Empresas/Details/5

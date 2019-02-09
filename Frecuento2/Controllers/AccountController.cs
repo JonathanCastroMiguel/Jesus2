@@ -94,12 +94,17 @@ namespace Frecuento2.Controllers
                     }
                     else if (roles.First() == "Cliente")
                     {
-                        return RedirectToAction("Reservas", "Home");
+                        return RedirectToAction("Buscador", "Home");
+                    }
+                    else if (User.IsInRole("Administrador"))
+                    {
+                        return RedirectToAction("Contact", "_LayoutAdmin", null);
                     }
                     else
                     {
                         return RedirectToAction("About", "Home");
                     }
+                   
 
 
 

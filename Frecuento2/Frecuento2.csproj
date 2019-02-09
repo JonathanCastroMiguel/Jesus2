@@ -343,6 +343,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Content\Logotipo.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -427,6 +428,7 @@
     <Content Include="Views\Clientes\Buscador.cshtml" />
     <Content Include="Views\Clientes\_CompanyList.cshtml" />
     <Content Include="Views\Clientes\_ServicesForEvent.cshtml" />
+    <Content Include="Views\Empresas\CarritoEmp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -28,9 +28,13 @@ namespace Frecuento2.Controllers
             {
                 return View("About", "_LayoutCliente", null);
             }
-            else
+            else if (User.IsInRole("Administrador"))
             {
                 return View("About", "_LayoutAdmin", null);
+            }
+            else
+            {
+                return View("About", "_LayoutSin", null);
             }
         }
 
@@ -46,9 +50,13 @@ namespace Frecuento2.Controllers
             {
                 return View("Contact", "_LayoutCliente", null);
             }
-            else
+            else if (User.IsInRole("Administrador"))
             {
                 return View("Contact", "_LayoutAdmin", null);
+            }
+            else
+            {
+                return View("Contact", "_LayoutSin", null);
             }
         }
 

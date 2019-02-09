@@ -20,7 +20,8 @@ namespace Frecuento2.Controllers
         // GET: Clientes
         public ActionResult Index()
         {
-            return View(db.Cliente.ToList());
+            List<Cliente> Clientes = db.Cliente.ToList();
+            return View("Index", "_LayoutAdmin", Clientes);
         }
 
         // GET: Clientes/Details/5

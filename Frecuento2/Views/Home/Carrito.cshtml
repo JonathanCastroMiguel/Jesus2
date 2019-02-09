@@ -1,21 +1,58 @@
 ﻿@{
     ViewBag.Title = "Carrito";
 }
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+
+
+<div class="col-sm-12">
+    <h4>Reserva</h4>
+
+    @if (Model.Reserva != null && Model.Reserva.Count > 0)
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(modelItem => Model.Reserva.ToList()[0].Fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => Model.Reserva.ToList()[0].EvenEmpre.Tipo_Evento.Descripción)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => Model.Reserva.ToList()[0].Cliente.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => Model.Reserva.ToList()[0].Precio_base_Evento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.Reserva.ToList()[0].Precio_Servicios)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.Reserva.ToList()[0].Precio_total)
+                </th>
+            </tr>
+            @foreach (var item in Model.Reserva)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EvenEmpre.Tipo_Evento.Descripción)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio_base_Evento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio_Servicios)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio_total)
+                    </td>
+                </tr>
+            }
+        </table>
+    }
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Carrito</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-
-</div>
