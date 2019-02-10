@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Frecuento2.Models.Reserva>
+
+@{
+    ViewBag.Title = "ReservasEmpresas";
+    Layout = "~/Views/Shared/_LayoutCliente.cshtml";
+}
+
+<h2>Reservas</h2>
+@using (Html.BeginForm("ReservaEmpSearch", "Reservas"))
+{
+    <div class="col-sm-12 Main">
+        <div class="col-sm-3">
+            <div class="form-group">
+                @Html.DropDownList("eventId", new SelectList(ViewBag.EventList, "Id_Tipo_Evento", "Descripción"), "Select Event", htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                @Html.DropDownList("clienteId", new SelectList(ViewBag.CustomerList, "Id_Cliente", "Nombre"), "Select Customer", htmlAttributes: new { @class = "form-control" })
+            </div>ReservaEmpSearch
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <input type="date" class="pull-right" name="date" id="dtFecha" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <input type="submit" value="Submit" />
+            <input type="button" value="Clear" onclick="@("window.location.href='" + @Url.Action("ReservasEmpresas", "Reservas") + "'");" />
+        </div>
+    </div>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            Cliente @Html.DisplayNameFor(model => model.Cliente.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EvenEmpre.Tipo_Evento.Descripción)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio_total)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EvenEmpre.Tipo_Evento.Descripción)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio_total)
+            </td>
+        </tr>
+    }
+</table>
+

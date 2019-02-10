@@ -67,6 +67,52 @@ namespace Frecuento2.Controllers
             return Json(new { success = "true" });
         }
 
+        public ActionResult ReservasEmpresas()
+        {
+            ViewBag.EventList = db.Tipo_Evento.ToList();
+            ViewBag.CustomerList = db.Cliente.ToList();
+
+            var reserva = db.Reserva.ToList();
+            return View(reserva.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult ReservaEmpSearch(int? eventId, int? clienteId, DateTime? date)
+        {
+            try
+            {
+                var reserva = db.Reserva.ToList();
+
+                if (eventId != null && eventId > 0)
+                {
+                    reserva = reserva.Where(s => s.EvenEmpre.Id_Tipo_Evento == eventId).ToList();
+                }
+
+                if (clienteId != null && clienteId > 0)
+                {
+                    reserva = reserva.Where(s => s.Cliente.Id_Cliente == clienteId).ToList();
+                }
+
+                int id = this.GetCompanyIDByMail(User.Identity.GetUserName());
+
+                reserva = reserva.Where(m => m.Empresa.Id_Empresa == id).ToList();
+
+                if (date != null && date.HasValue)
+                {
+                    reserva = reserva.Where(s => s.Fecha == Convert.ToDateTime(date)).ToList();
+                }
+
+                ViewBag.EventList = db.Tipo_Evento.ToList();
+                ViewBag.CustomerList = db.Cliente.ToList();
+
+                return View("ReservasEmpresas", reserva);
+            }
+            catch (Exception ex)
+            {
+                return View("ReservasEmpresas", new List<Reserva>());
+            }
+        }
+
         // GET: Reservas/Details/5
         public ActionResult Details(int? id)
         {
@@ -172,6 +218,13 @@ namespace Frecuento2.Controllers
             db.Reserva.Remove(reserva);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        //*** CUSTOM METHODS ***
+        private int GetCompanyIDByMail(string mail)
+        {
+            //get from DB
+            return db.Empresa.SingleOrDefault(empresa => empresa.Email == mail).Id_Empresa;
         }
 
         private int GetClientIDByMail(string mail)

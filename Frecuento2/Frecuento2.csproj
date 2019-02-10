@@ -429,6 +429,8 @@
     <Content Include="Views\Clientes\_CompanyList.cshtml" />
     <Content Include="Views\Clientes\_ServicesForEvent.cshtml" />
     <Content Include="Views\Empresas\CarritoEmp.cshtml" />
+    <Content Include="Views\Reservas\ReservasEmpresas.cshtml" />
+    <Content Include="Views\Reservas\ReservasAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
