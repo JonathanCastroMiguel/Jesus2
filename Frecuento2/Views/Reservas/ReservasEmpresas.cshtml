@@ -42,25 +42,37 @@
             @Html.DisplayNameFor(model => model.EvenEmpre.Tipo_Evento.Descripción)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Precio_base_Evento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio_Servicios)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Precio_total)
         </th>
     </tr>
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cliente.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EvenEmpre.Tipo_Evento.Descripción)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Precio_total)
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EvenEmpre.Tipo_Evento.Descripción)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio_base_Evento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio_Servicios)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio_total)
+        </td>
+    </tr>
     }
 </table>
 

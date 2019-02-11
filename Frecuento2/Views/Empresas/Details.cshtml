@@ -178,58 +178,6 @@
         }
 
     </div>
-    <div class="col-sm-6">
-        <h4>Reserva</h4>
-
-        @if (Model.Reserva != null && Model.Reserva.Count > 0)
-        {
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(modelItem => Model.Reserva.ToList()[0].Fecha)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(modelItem => Model.Reserva.ToList()[0].EvenEmpre.Tipo_Evento.Descripción)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(modelItem => Model.Reserva.ToList()[0].Cliente.Nombre)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(modelItem => Model.Reserva.ToList()[0].Precio_base_Evento)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => Model.Reserva.ToList()[0].Precio_Servicios)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => Model.Reserva.ToList()[0].Precio_total)
-                    </th>
-                </tr>
-                @foreach (var item in Model.Reserva)
-                {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Fecha)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EvenEmpre.Tipo_Evento.Descripción)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cliente.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Precio_base_Evento)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Precio_Servicios)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Precio_total)
-                    </td>
-                </tr>
-                }
-            </table>
-        }
-    </div>
 </div>
 
 
