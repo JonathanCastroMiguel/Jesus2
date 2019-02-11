@@ -1,23 +1,23 @@
 ﻿@model IEnumerable<Frecuento2.Models.Reserva>
 
 @{
-    ViewBag.Title = "ReservasAdmin";
+    ViewBag.Title = "Reservas";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Reservas</h2>
+<h2>Reservas de Administrador</h2>
 
 @using (Html.BeginForm("ReservaSearch", "Reservas"))
 {
 <div class="col-sm-12 Main">
     <div class="col-sm-3">
         <div class="form-group">
-            @Html.DropDownList("eventId", new SelectList(ViewBag.EventList, "Id_Tipo_Evento", "Descripción"), "Select Event", htmlAttributes: new { @class = "form-control" })
+            @Html.DropDownList("eventId", new SelectList(ViewBag.EventList, "Id_Tipo_Evento", "Descripción"), "Selecciona Evento", htmlAttributes: new { @class = "form-control" })
         </div>
     </div>
     <div class="col-sm-3">
         <div class="form-group">
-            @Html.DropDownList("compId", new SelectList(ViewBag.CompanyList, "Id_Empresa", "Nombre"), "Select Company", htmlAttributes: new { @class = "form-control" })
+            @Html.DropDownList("compId", new SelectList(ViewBag.CompanyList, "Id_Empresa", "Nombre"), "Selecciona Compañia", htmlAttributes: new { @class = "form-control" })
         </div>
     </div>
     <div class="col-sm-2">
@@ -26,8 +26,8 @@
         </div>
     </div>
     <div class="col-sm-4">
-        <input type="submit" value="Submit" />
-        <input type="button" value="Clear" onclick="@("window.location.href='" + @Url.Action("ReservasAdmin", "Reservas") + "'");" />
+        <input type="submit" value="Buscar" class="btn btn-success" />
+        <input type="button" value="Borrar" class="btn btn-danger" onclick="@("window.location.href='" + @Url.Action("ReservasAdmin", "Reservas") + "'");" />
     </div>
 </div>
 }

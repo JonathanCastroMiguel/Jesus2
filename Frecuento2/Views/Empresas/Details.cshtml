@@ -2,12 +2,12 @@
 @{
     /**/
 
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
-<h2>Details</h2>
+<h2>Perfil de Empresa</h2>
 
 <div>
-    <h4>Empresa</h4>
+    
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -74,8 +74,8 @@
                     @Html.TextBox("Precio_Base", "", new { @type = "number", @class = "form-control" })
                 </div>
                 <div class="col-sm-4">
-                    <input type="submit" value="Guardar" id="btnEvent" class="btn btn-default" />
-                    <input type="button" onclick="EventCancelClick()" id="btnEventCancel" value="Cancelar" style="display:none" class="btn btn-default" />
+                    <input type="submit" value="Guardar" id="btnEvent" class="btn btn-success" />
+                    <input type="button" onclick="EventCancelClick()" id="btnEventCancel" value="Cancelar" style="display:none" class="btn btn-danger" />
 
                 </div>
             </div>
@@ -105,7 +105,7 @@
                         <td>
                             @using (Html.BeginForm("DeleteFromCompany", "EvenEmpres"))
                             {
-                                <button type="button" value="Editar" onclick="onEventEditClick(@item.Id_EvenEmpre,@item.Precio_Base,@item.Id_Tipo_Evento)" class="btn btn-default">Editar</button>
+                                <button type="button" value="Editar" onclick="onEventEditClick(@item.Id_EvenEmpre,@item.Precio_Base,@item.Id_Tipo_Evento)" class="btn btn-info">Editar</button>
 
                                 @Html.Hidden("compId", Model.Id_Empresa)
                                 @Html.Hidden("evenEmpId", item.Id_EvenEmpre)
@@ -135,8 +135,8 @@
                     @Html.TextBox("Precio_Servicio", "", new { @type = "number", @class = "form-control" })
                 </div>
                 <div class="col-sm-4">
-                    <input type="submit" id="btnService" value="Guardar" class="btn btn-default" />
-                    <input type="button" onclick="ServiceCancelClick()" id="btnServiceCancel" value="Cancelar" style="display:none" class="btn btn-default" />
+                    <input type="submit" id="btnService" value="Guardar" class="btn btn-success" />
+                    <input type="button" onclick="ServiceCancelClick()" id="btnServiceCancel" value="Cancelar" style="display:none" class="btn btn-danger" />
                 </div>
             </div>
         }
@@ -165,7 +165,7 @@
                         <td>
                             @using (Html.BeginForm("DeleteFromCompany", "ServiEmpres"))
                             {
-                                <button type="button" value="Editar" onclick="onServiceEditClick(@item.Id_ServiEmpre,@item.Precio_Servicio,@item.Id_Tipo_Servicio)" class="btn btn-default">Editar</button>
+                                <button type="button" value="Editar" onclick="onServiceEditClick(@item.Id_ServiEmpre,@item.Precio_Servicio,@item.Id_Tipo_Servicio)" class="btn btn-info">Editar</button>
 
                                 @Html.Hidden("compId", Model.Id_Empresa)
                                 @Html.Hidden("servEmpId", item.Id_ServiEmpre)
@@ -197,7 +197,7 @@
         $("#Id_EvenEmpre").val(id);
         $("#Precio_Base").val(price);
         $("#Id_Tipo_Evento").val(eventId);
-        $("#btnEvent").val("Update");
+        $("#btnEvent").val("Guardar");
         $("#btnEventCancel").show();
     }
 

@@ -99,7 +99,7 @@ namespace Frecuento2.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return View(cliente);
+            return View("_LayoutCliente",cliente);
         }
 
         // GET: Clientes/Delete/5
