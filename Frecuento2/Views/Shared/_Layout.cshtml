@@ -9,10 +9,19 @@
     @Scripts.Render("~/bundles/modernizr")
     @* Añadido para Datapicker de JQueryUIHelpers.Mvc5 *@
     @Styles.Render("~/Content/themes/base/css")
+    <style>
+        .navbar-header a, .navbar-nav li a {
+            color: white !important;
+        }
+            .navbar-header a:hover, .navbar-nav li a:hover {
+                color: white !important;
+                background-color: #88640D !important;
+            }
+    </style>
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-fixed-top" style="background-color: #D5A223;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

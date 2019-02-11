@@ -55,7 +55,7 @@
 </p>
 
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-md-6">
         <h4>Evento de empresa</h4>
 
         @using (Html.BeginForm("CreateFromCompany", "EvenEmpres"))
@@ -109,7 +109,7 @@
 
                                 @Html.Hidden("compId", Model.Id_Empresa)
                                 @Html.Hidden("evenEmpId", item.Id_EvenEmpre)
-                                <button type="button"  onclick="return DeleteRowEvent(this)" id="btnDeleteCancel" value="Cancelar" class="btn btn-danger" >Borrar</button>        
+                                <button type="button" onclick="return DeleteRowEvent(this)" id="btnDeleteCancel" value="Cancelar" class="btn btn-danger">Borrar</button>
                             }
 
                         </td>
@@ -117,7 +117,8 @@
                 }
             </table>
         }
-
+    </div>
+    <div class="col-md-6">
         <h4> Servicio de Empresa</h4>
         @using (Html.BeginForm("CreateForCompany", "ServiEmpres"))
         {
@@ -168,7 +169,7 @@
 
                                 @Html.Hidden("compId", Model.Id_Empresa)
                                 @Html.Hidden("servEmpId", item.Id_ServiEmpre)
-                                <button type="button" onclick="return DeleteRowService(this)" id="btnDeleteCancel" value="Cancelar" class="btn btn-danger" >Borrar</button>
+                                <button type="button" onclick="return DeleteRowService(this)" id="btnDeleteCancel" value="Cancelar" class="btn btn-danger">Borrar</button>
                             }
                         </td>
 
