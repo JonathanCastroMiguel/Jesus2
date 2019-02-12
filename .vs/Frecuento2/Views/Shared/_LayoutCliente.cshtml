@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - FRECUENTO</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @* Añadido para Datapicker de JQueryUIHelpers.Mvc5 *@
+    @Styles.Render("~/Content/themes/base/css")
+    <style>
+        .navbar-header a, .navbar-nav li a {
+            color: white !important;
+        }
+
+        .navbar-header a:hover, .navbar-nav li a:hover {
+            color: white !important;
+            background-color: #88640D !important;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="navbar navbar-fixed-top" style="background-color: #D5A223;">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("FRECUENTO", "About", "Home", new { area = "" }, new { @class = "navbar-brand" })
+           
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Buscador", "Buscador", "Home")</li>
+                    <li>@Html.ActionLink("Perfil", "Perfil", "Home")</li>
+                    <li>@Html.ActionLink("Reservas", "Reservas", "Home")</li>
+                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+           
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+       
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year -Frecuento</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @* Añadido para Datapicker de JQueryUIHelpers.Mvc5 *@
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,42 @@
+﻿@model Frecuento2.Models.EvenEmpre
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>EvenEmpre</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio_Base)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio_Base)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Empresa.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empresa.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo_Evento.Descripción)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo_Evento.Descripción)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id_EvenEmpre }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

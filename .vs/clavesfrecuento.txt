@@ -1,0 +1,23 @@
+ADMINISTRADOR
+admin@frecuento.es
+admin123
+
+EMPRESA
+jardinade@empresa.es                   Babel@empresa.es
+ABc_1234      				ABc_1234
+
+murrys@empresa.com                     AltozanoEventos@empresa.es
+ABc_1234				ABc_1234
+
+qlinaria@empresa.es			Maestral@empresa.es	
+ABc_1234				ABc_1234
+
+JuanXXIII@empresa.es			Mediterranea@empresa.es
+ABc_1234				ABc_1234
+
+Dalua@empresa.es			LaCreme@empresa.es
+ABc_1234				ABc_1234
+
+CLIENTE
+jesus@gmail.es				DanielEspin@gmail.com
+ABc_1234				ABc_1234

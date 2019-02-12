@@ -1,0 +1,42 @@
+﻿@model Frecuento2.Models.ServiEmpre
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ServiEmpre</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio_Servicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio_Servicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Empresa.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empresa.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo_Servicio.Descripción)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo_Servicio.Descripción)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id_ServiEmpre }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

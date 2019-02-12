@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f02d6fa32d5448af84c352bc1bc410e5" Name="Diagram1">
+        <EntityTypeShape EntityType="FrecuentoModel.Cliente" Width="1.5" PointX="10.625" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="FrecuentoModel.Empresa" Width="1.5" PointX="6.125" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FrecuentoModel.EvenEmpre" Width="1.5" PointX="3.625" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FrecuentoModel.evenser" Width="1.5" PointX="3.625" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FrecuentoModel.Reserva" Width="1.5" PointX="8.375" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FrecuentoModel.ServiEmpre" Width="1.5" PointX="3.5" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="FrecuentoModel.Tipo_Evento" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FrecuentoModel.Tipo_Servicio" Width="1.5" PointX="0.875" PointY="6.375" IsExpanded="true" />
+        <AssociationConnector Association="FrecuentoModel.FK_Reserva_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="FrecuentoModel.FK_EvenEmpre_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="FrecuentoModel.FK_Reserva_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="FrecuentoModel.FK_ServiEmpre_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="FrecuentoModel.FK_EvenEmpre_Tipo_Evento" ManuallyRouted="false" />
+        <AssociationConnector Association="FrecuentoModel.FK_Reserva_EvenEmpre" ManuallyRouted="false" />
+        <AssociationConnector Association="FrecuentoModel.FK_union2" ManuallyRouted="false" />
+        <AssociationConnector Association="FrecuentoModel.FK_union" ManuallyRouted="false" />
+        <AssociationConnector Association="FrecuentoModel.FK_ServiEmpre_Tipo_Servicio" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,26 @@
+﻿@model Frecuento2.Models.Tipo_Evento
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tipo_Evento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripción)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripción)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id_Tipo_Evento }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
