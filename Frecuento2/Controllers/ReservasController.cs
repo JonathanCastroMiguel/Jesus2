@@ -19,8 +19,47 @@ namespace Frecuento2.Controllers
         public ActionResult Index()
         {
             int client_ID = this.GetClientIDByMail(User.Identity.GetUserName()); ;
-            var reserva = db.Reserva.Include(r => r.Cliente).Include(r => r.Empresa).Include(r => r.EvenEmpre).Where(r => r.Id_Cliente == client_ID).OrderByDescending(r => r.Fecha).ToList();
+            var reserva = db.Reserva.Where(r => r.Id_Cliente == client_ID).OrderByDescending(r => r.Fecha).ToList();
+            ViewBag.EventList = db.Tipo_Evento.ToList();
+            ViewBag.CompanyList = db.Empresa.ToList();
             return View("index", "_LayoutCliente", reserva.ToList());
+        }
+        [HttpPost]
+        public ActionResult ReservaSearchClient(int? eventId, int? compId, DateTime? date, string Busqueda)
+        {
+            try
+            {
+                var reserva = db.Reserva.ToList();
+
+                if (eventId != null && eventId > 0)
+                {
+                    reserva = reserva.Where(s => s.EvenEmpre.Id_Tipo_Evento == eventId).ToList();
+                }
+
+                if (compId != null && compId > 0)
+                {
+                    reserva = reserva.Where(s => s.Empresa.Id_Empresa == compId).ToList();
+                }
+
+                if (date != null && date.HasValue)
+                {
+                    reserva = reserva.Where(s => s.Fecha == Convert.ToDateTime(date)).ToList();
+                }
+                if (!string.IsNullOrEmpty(Busqueda))
+                {
+                    reserva = reserva.Where(e => e.Empresa.Nombre.Contains(Busqueda)).ToList();
+                }
+                ViewBag.EventList = db.Tipo_Evento.ToList();
+                ViewBag.CompanyList = db.Empresa.ToList();
+
+                return View("index", reserva);
+            }
+            catch (Exception ex)
+            {
+                return View("index", new List<Reserva>());
+
+            }
+            return Json(new { success = "true" });
         }
 
         public ActionResult ReservasAdmin()

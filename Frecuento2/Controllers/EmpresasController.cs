@@ -17,9 +17,13 @@ namespace Frecuento2.Controllers
 
         [Authorize(Roles = "Administrador")]
         // GET: Empresas
-        public ActionResult Index()
+        public ActionResult Index(string Busqueda)
         {
             List<Empresa> Empresas = db.Empresa.ToList();
+            if(!string.IsNullOrEmpty(Busqueda))
+            {
+                Empresas = Empresas.Where(e => e.Nombre.Contains(Busqueda)).ToList();
+            }
             return View("Index", "_LayoutAdmin", Empresas);
         }
 
@@ -60,7 +64,7 @@ namespace Frecuento2.Controllers
             {
                 db.Empresa.Add(empresa);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("About", "Home");
             }
 
             return View("Create", "_Layout", empresa);

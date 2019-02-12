@@ -7,8 +7,22 @@
 <h2>Empresas</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nueva Empresa", "Create")
 </p>
+@using (Html.BeginForm("Index", "Empresas", FormMethod.Get))
+{
+<div class="col-sm-12 Main">
+    <div class="col-sm-8">
+        <div class="form-group">
+            @Html.TextBox("Busqueda", null, new { @class = "form-control", placeholder = "Nombre de la empresa" })
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <input type="submit" value="Buscar" class="btn btn-success" />
+        <input type="button" value="Borrar" class="btn btn-danger" onclick="@("window.location.href='" + @Url.Action("Index", "Empresas") + "'");" />
+    </div>
+</div>
+}
 <table class="table">
     <tr>
         <th>
@@ -21,13 +35,16 @@
             @Html.DisplayNameFor(model => model.Teléfono)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Nº_Empleados)
+            @*@Html.DisplayNameFor(model => model.Nº_Empleados)*@
+            Número Empleados
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Nº_Cuenta)
+            @*@Html.DisplayNameFor(model => model.Nº_Cuenta)*@
+            Número Cuenta
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @*@Html.DisplayNameFor(model => model.Email)*@
+            Email
         </th>
         <th></th>
     </tr>
@@ -53,8 +70,6 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id_Empresa }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id_Empresa }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id_Empresa })
         </td>
     </tr>

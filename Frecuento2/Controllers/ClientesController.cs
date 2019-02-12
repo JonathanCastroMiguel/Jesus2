@@ -18,9 +18,13 @@ namespace Frecuento2.Controllers
 
         [Authorize(Roles = "Administrador")]
         // GET: Clientes
-        public ActionResult Index()
+        public ActionResult Index(string Busqueda2)
         {
             List<Cliente> Clientes = db.Cliente.ToList();
+            if (!string.IsNullOrEmpty(Busqueda2))
+            {
+                Clientes = Clientes.Where(e => e.Nombre.Contains(Busqueda2)).ToList();
+            }
             return View("Index", "_LayoutAdmin", Clientes);
         }
 
