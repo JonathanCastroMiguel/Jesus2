@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FrecuentoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FrecuentoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="Id_Cliente" />
@@ -13,7 +13,7 @@
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Apellidos" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Dirección" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Código_Postal" Type="int" Nullable="false" />
+          <Property Name="Código_Postal" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Fecha_Nacimiento" Type="datetime" Nullable="false" />
           <Property Name="Teléfono" Type="int" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
@@ -83,7 +83,7 @@
             <PropertyRef Name="Id_Tipo_Servicio" />
           </Key>
           <Property Name="Id_Tipo_Servicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Descripción" Type="text" Nullable="false" />
+          <Property Name="Descripción" Type="nvarchar(max)" />
         </EntityType>
         <Association Name="FK_EvenEmpre_Empresa">
           <End Role="Empresa" Type="Self.Empresa" Multiplicity="1" />
@@ -239,8 +239,7 @@
             <End Role="evenser" EntitySet="evenser" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FrecuentoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -252,7 +251,7 @@
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Dirección" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Código_Postal" Type="Int32" Nullable="false" />
+          <Property Name="Código_Postal" Type="String" Nullable="false" />
           <Property Name="Fecha_Nacimiento" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Teléfono" Type="Int32" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
@@ -339,7 +338,7 @@
             <PropertyRef Name="Id_Tipo_Servicio" />
           </Key>
           <Property Name="Id_Tipo_Servicio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Descripción" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripción" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ServiEmpre" Relationship="Self.FK_ServiEmpre_Tipo_Servicio" FromRole="Tipo_Servicio" ToRole="ServiEmpre" />
         </EntityType>
         <Association Name="FK_Reserva_Cliente">
