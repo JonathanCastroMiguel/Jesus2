@@ -8,7 +8,7 @@
     <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Apellidos" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Dirección" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Código_Postal" Type="int" Nullable="false" />
+    <Property Name="Código_Postal" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Fecha_Nacimiento" Type="datetime" Nullable="false" />
     <Property Name="Teléfono" Type="int" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
@@ -78,7 +78,7 @@
       <PropertyRef Name="Id_Tipo_Servicio" />
     </Key>
     <Property Name="Id_Tipo_Servicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Descripción" Type="text" Nullable="false" />
+    <Property Name="Descripción" Type="nvarchar(max)" />
   </EntityType>
   <Association Name="FK_EvenEmpre_Empresa">
     <End Role="Empresa" Type="Self.Empresa" Multiplicity="1" />

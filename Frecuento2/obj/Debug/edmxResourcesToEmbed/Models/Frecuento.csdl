@@ -8,7 +8,7 @@
     <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Dirección" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Código_Postal" Type="Int32" Nullable="false" />
+    <Property Name="Código_Postal" Type="String" Nullable="false" />
     <Property Name="Fecha_Nacimiento" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Teléfono" Type="Int32" Nullable="false" />
     <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
@@ -95,7 +95,7 @@
       <PropertyRef Name="Id_Tipo_Servicio" />
     </Key>
     <Property Name="Id_Tipo_Servicio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Descripción" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripción" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="ServiEmpre" Relationship="Self.FK_ServiEmpre_Tipo_Servicio" FromRole="Tipo_Servicio" ToRole="ServiEmpre" />
   </EntityType>
   <Association Name="FK_Reserva_Cliente">

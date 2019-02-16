@@ -21,3 +21,43 @@ ABc_1234				ABc_1234
 CLIENTE
 jesus@gmail.es				DanielEspin@gmail.com
 ABc_1234				ABc_1234
+
+victoria@gmail.com			Luis@gmail.com	
+ABc_1234				ABc_1234	
+
+Maria@gmail.com				Nelson@gmail.com	
+ABc_1234				ABc_1234	
+
+Carlos@gmail.com			Alejandro2@gmail.com
+ABc_1234				ABc_1234	
+
+wilson@gmail.com			Teo2@gmail.com
+ABc_1234				Abc_1234
+
+Roberto@gmail.com			Nico@gmail.com
+ABc_1234				ABc_1234
+
+AlbertoS@gmail.com			Sergio@gmail.com
+ABc_1234				ABc_1234
+
+Enrique@gmail.com			Pablo@gmail.com
+ABc_1234				ABc_1234
+
+AlbertoC@gmail.com			Samia@gmail.com
+ABc_1234				ABc_1234
+
+Silvia@gmail.com			MariElena@gmail.com
+ABc_1234				ABc_1234
+
+Angelc@gmail.com			Ricardo@gmail.com
+ABc_1234				ABc_1234
+						
+Gonzalo@gmail.com			Isaac@gmail.com
+ABc_1234				ABc_1234
+
+Andres@gmail.com			Jorge@gmail.com
+
+
+
+
+
