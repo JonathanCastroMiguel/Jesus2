@@ -14,8 +14,9 @@ namespace Frecuento2.Models
 
 using System;
     using System.Collections.Generic;
-    
-public partial class Reserva
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class Reserva
 {
 
     public int Id_Reserva { get; set; }
@@ -25,8 +26,9 @@ public partial class Reserva
     public int Id_Cliente { get; set; }
 
     public int Id_Empresa { get; set; }
+     [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
 
-    public System.DateTime Fecha { get; set; }
+     public System.DateTime Fecha { get; set; }
 
     public int EvenEmpreId_Evento { get; set; }
 

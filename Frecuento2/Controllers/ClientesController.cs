@@ -64,7 +64,7 @@ namespace Frecuento2.Controllers
                 db.Cliente.Add(cliente);
                 db.SaveChanges();
 
-                return RedirectToAction("Reservas", "Home");
+                return RedirectToAction("Buscador", "Clientes");
             }
 
             return View("Create", "_LayoutCliente", cliente);
