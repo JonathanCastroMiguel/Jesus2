@@ -83,7 +83,15 @@ namespace Frecuento2.Controllers
             {
                 return HttpNotFound();
             }
-            return View(cliente);
+            
+            //"~/Views/Shared/_LayoutCliente.cshtml"
+            if(User.IsInRole("Administrador"))
+            {
+                return View("Edit", "_LayoutAdmin", cliente);
+            } else
+            {
+                return View("Edit", "_LayoutCliente", cliente);
+            }
         }
 
         // POST: Clientes/Edit/5

@@ -6,9 +6,7 @@
 
 <h2>Empresas</h2>
 
-<p>
-    @Html.ActionLink("Crear Nueva Empresa", "Create")
-</p>
+
 @using (Html.BeginForm("Index", "Empresas", FormMethod.Get))
 {
 <div class="col-sm-12 Main">
@@ -70,8 +68,9 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id_Empresa })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id_Empresa })
         </td>
+       
     </tr>
 }
 

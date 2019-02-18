@@ -6,9 +6,7 @@
 
 <h2>Clientes</h2>
 
-<p>
-    @Html.ActionLink("Crear Nuevo Cliente", "Create")
-</p>
+
 @using (Html.BeginForm("Index", "Clientes", FormMethod.Get))
 {
     <div class="col-sm-12 Main">
@@ -61,38 +59,39 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellidos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Dirección)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Código_Postal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha_Nacimiento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Teléfono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DNI)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nº_Cuenta)
-            </td>
-            <td>
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id_Cliente })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apellidos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dirección)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Código_Postal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha_Nacimiento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Teléfono)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DNI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nº_Cuenta)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id_Cliente })
+        </td>
+     
+    </tr>
     }
 
 </table>

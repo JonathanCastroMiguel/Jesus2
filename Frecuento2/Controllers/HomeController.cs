@@ -101,6 +101,12 @@ namespace Frecuento2.Controllers
             }
         }
 
+        public ActionResult Vistas()
+        {
+            return View();
+        }
+
+
         public ActionResult Buscador()
         {
             if (!User.IsInRole("Empresa"))

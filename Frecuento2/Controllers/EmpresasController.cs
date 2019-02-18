@@ -64,7 +64,7 @@ namespace Frecuento2.Controllers
             {
                 db.Empresa.Add(empresa);
                 db.SaveChanges();
-                return RedirectToAction("About", "Home");
+                return RedirectToAction("Details", "Empresas");
             }
 
             return View("Create", "_Layout", empresa);
@@ -82,7 +82,14 @@ namespace Frecuento2.Controllers
             {
                 return HttpNotFound();
             }
-            return View(empresa);
+            if (User.IsInRole("Administrador"))
+            {
+                return View("Edit", "_LayoutAdmin", empresa);
+            }
+            else
+            {
+                return View("Edit", "_Layout", empresa);
+            }
         }
 
         // POST: Empresas/Edit/5
