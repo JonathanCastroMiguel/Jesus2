@@ -111,8 +111,10 @@ namespace Frecuento2.Controllers
             ViewBag.EventList = db.Tipo_Evento.ToList();
             ViewBag.CustomerList = db.Cliente.ToList();
 
-            var reserva = db.Reserva.ToList();
-            return View(reserva.ToList());
+            int EmpresaID = this.GetCompanyIDByMail(User.Identity.GetUserName());
+            var reserva = db.Reserva.Where(r => r.Id_Empresa == EmpresaID).ToList();
+
+            return View(reserva);
         }
 
         [HttpPost]
@@ -120,7 +122,8 @@ namespace Frecuento2.Controllers
         {
             try
             {
-                var reserva = db.Reserva.ToList();
+                int EmpresaID = this.GetCompanyIDByMail(User.Identity.GetUserName());
+                var reserva = db.Reserva.Where(r => r.Id_Empresa == EmpresaID).ToList();
 
                 if (eventId != null && eventId > 0)
                 {
