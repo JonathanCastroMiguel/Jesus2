@@ -23,24 +23,24 @@
 }
 <table class="table">
     <tr>
-        <th>
+        <th  class="text-center">
             @Html.DisplayNameFor(model => model.Nombre)
         </th>
-        <th>
+        <th  class="text-center">
             @Html.DisplayNameFor(model => model.Dirección)
         </th>
-        <th>
+        <th  class="text-center">
             @Html.DisplayNameFor(model => model.Teléfono)
         </th>
-        <th>
+        <th  class="text-center">
             @*@Html.DisplayNameFor(model => model.Nº_Empleados)*@
             Número Empleados
         </th>
-        <th>
+        <th  class="text-center">
             @*@Html.DisplayNameFor(model => model.Nº_Cuenta)*@
             Número Cuenta
         </th>
-        <th>
+        <th  class="text-center">
             @*@Html.DisplayNameFor(model => model.Email)*@
             Email
         </th>
@@ -49,26 +49,26 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        <td  class="text-center">
             @Html.DisplayFor(modelItem => item.Nombre)
         </td>
-        <td>
+        <td  class="text-center">
             @Html.DisplayFor(modelItem => item.Dirección)
         </td>
-        <td>
+        <td  class="text-center">
             @Html.DisplayFor(modelItem => item.Teléfono)
         </td>
-        <td>
+        <td  class="text-center">
             @Html.DisplayFor(modelItem => item.Nº_Empleados)
         </td>
-        <td>
+        <td  class="text-center">
             @Html.DisplayFor(modelItem => item.Nº_Cuenta)
         </td>
-        <td>
+        <td  class="text-center">
             @Html.DisplayFor(modelItem => item.Email)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id_Empresa })
+        <td  class="text-center">
+            @Html.ActionLink("Editar", "Edit", new { id = item.Id_Empresa }, new { @class = "btn btn-info" })
         </td>
        
     </tr>

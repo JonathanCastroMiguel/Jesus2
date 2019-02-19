@@ -33,20 +33,20 @@
 }
 <table class="table">
     <tr>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.Fecha)
         </th>
-        <th>
+        <th class="text-center">
             Empresa  @Html.DisplayNameFor(model => model.Empresa.Nombre)
         </th>
-        <th>
+        <th class="text-center">
             Cliente @Html.DisplayNameFor(model => model.Cliente.Nombre)
         </th>
-        <th>
+        <th class="text-center">
             @*@Html.DisplayNameFor(model => model.EvenEmpre.Tipo_Evento.Descripción)*@
             Tipo Evento
         </th>
-        <th>
+        <th class="text-center">
             @*@Html.DisplayNameFor(model => model.Precio_total)*@
             Precio Total
         </th>
@@ -54,22 +54,21 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.Fecha)
             </td>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.Empresa.Nombre)
             </td>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.Cliente.Nombre)
             </td>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.EvenEmpre.Tipo_Evento.Descripción)
             </td>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(modelItem => item.Precio_total)
             </td>
-
         </tr>
     }
 </table>

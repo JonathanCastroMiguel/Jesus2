@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Tipos de Servicio</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -24,9 +24,9 @@
             @Html.DisplayFor(modelItem => item.Descripción)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id_Tipo_Servicio }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id_Tipo_Servicio }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id_Tipo_Servicio })
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id_Tipo_Servicio }, new { @class = "btn btn-info" }) 
+            @Html.ActionLink("Detalles", "Details", new { id=item.Id_Tipo_Servicio }, new { @class = "btn btn-info" })
+            @Html.ActionLink("Borrar", "Delete", new { id=item.Id_Tipo_Servicio }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }

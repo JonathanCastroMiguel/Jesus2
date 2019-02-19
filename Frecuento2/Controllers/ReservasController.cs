@@ -18,7 +18,7 @@ namespace Frecuento2.Controllers
         // GET: Reservas
         public ActionResult Index()
         {
-            int client_ID = this.GetClientIDByMail(User.Identity.GetUserName()); ;
+            int client_ID = this.GetClientIDByMail(User.Identity.GetUserName());
             var reserva = db.Reserva.Where(r => r.Id_Cliente == client_ID).OrderByDescending(r => r.Fecha).ToList();
             ViewBag.EventList = db.Tipo_Evento.ToList();
             ViewBag.CompanyList = db.Empresa.ToList();
@@ -29,7 +29,8 @@ namespace Frecuento2.Controllers
         {
             try
             {
-                var reserva = db.Reserva.ToList();
+                int client_ID = this.GetClientIDByMail(User.Identity.GetUserName());
+                var reserva = db.Reserva.Where(r => r.Id_Cliente == client_ID).OrderByDescending(r => r.Fecha).ToList();
 
                 if (eventId != null && eventId > 0)
                 {
@@ -76,7 +77,7 @@ namespace Frecuento2.Controllers
         {
             try
             {
-                var reserva = db.Reserva.ToList();
+                var reserva = db.Reserva.OrderByDescending(r => r.Fecha).ToList();
 
                 if (eventId != null && eventId > 0)
                 {
@@ -110,11 +111,9 @@ namespace Frecuento2.Controllers
         {
             ViewBag.EventList = db.Tipo_Evento.ToList();
             ViewBag.CustomerList = db.Cliente.ToList();
-
-            int EmpresaID = this.GetCompanyIDByMail(User.Identity.GetUserName());
-            var reserva = db.Reserva.Where(r => r.Id_Empresa == EmpresaID).ToList();
-
-            return View(reserva);
+            int id = this.GetCompanyIDByMail(User.Identity.GetUserName());
+            var reserva = db.Reserva.Where(m => m.Empresa.Id_Empresa == id).ToList();
+            return View(reserva.ToList());
         }
 
         [HttpPost]
@@ -122,8 +121,7 @@ namespace Frecuento2.Controllers
         {
             try
             {
-                int EmpresaID = this.GetCompanyIDByMail(User.Identity.GetUserName());
-                var reserva = db.Reserva.Where(r => r.Id_Empresa == EmpresaID).ToList();
+                var reserva = db.Reserva.OrderByDescending(r => r.Fecha).ToList();
 
                 if (eventId != null && eventId > 0)
                 {
@@ -151,7 +149,7 @@ namespace Frecuento2.Controllers
             }
             catch (Exception ex)
             {
-                return View("ReservaEmpresas", new List<Reserva>());
+                return View("ReservasEmpresas", new List<Reserva>());
             }
         }
 
