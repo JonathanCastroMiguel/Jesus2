@@ -148,7 +148,7 @@ namespace Frecuento2.Controllers
             }
             catch (Exception ex)
             {
-                return View("ReservasEmpresas", new List<Reserva>());
+                return View("ReservaEmpresas", new List<Reserva>());
             }
         }
 
